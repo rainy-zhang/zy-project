@@ -4,6 +4,10 @@ import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
@@ -19,9 +23,11 @@ public class BlogTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
+    @Column(name = "blog_id")
     private Integer blogId;
-    
+
+    @Column(name = "tag_id")
     private Integer tagId;
 
     @Operator
