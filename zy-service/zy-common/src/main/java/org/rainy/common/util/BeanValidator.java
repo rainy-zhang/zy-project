@@ -14,11 +14,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/30 10:45 上午
- */
 public class BeanValidator {
 
     private static final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();

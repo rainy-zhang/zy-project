@@ -8,11 +8,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @description: 通用状态码
- * @author: wt1734
- * @date: 2021/11/8 11:28
- */
 @AllArgsConstructor
 @Getter
 public enum CommonStatus {

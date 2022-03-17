@@ -4,6 +4,7 @@ import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 /**

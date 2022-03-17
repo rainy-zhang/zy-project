@@ -1,4 +1,4 @@
-package org.rainy.common.beans;
+package org.rainy.permission.beans;
 
 import lombok.Getter;
 import lombok.Setter;

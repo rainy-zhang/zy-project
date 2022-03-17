@@ -1,13 +1,5 @@
 package org.rainy.common.constant;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2021/11/26 0026 10:32
- */
 public class ValidateGroups {
 
     public interface INSERT {};

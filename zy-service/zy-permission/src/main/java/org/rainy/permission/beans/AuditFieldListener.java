@@ -1,10 +1,13 @@
-package org.rainy.common.beans;
+package org.rainy.permission.beans;
 
-import org.assertj.core.util.Lists;
-import org.rainy.common.annotation.*;
+import com.google.common.collect.Lists;
+import org.rainy.common.annotation.OperateIp;
+import org.rainy.common.annotation.OperateTime;
+import org.rainy.common.annotation.Operator;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.Collection;
