@@ -1,4 +1,4 @@
-package org.rainy.common.beans;
+package org.rainy.permission.beans;
 
 import com.google.common.base.Preconditions;
 import org.springframework.beans.BeansException;
