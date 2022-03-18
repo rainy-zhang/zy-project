@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/30 10:45 上午
- */
 @Slf4j
 public class JsonMapper {
 

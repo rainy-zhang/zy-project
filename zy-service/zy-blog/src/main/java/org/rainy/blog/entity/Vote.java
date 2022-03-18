@@ -1,13 +1,11 @@
 package org.rainy.blog.entity;
 
+import lombok.Data;
 import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
@@ -18,13 +16,11 @@ import java.time.LocalDateTime;
  * @author wt1734
  * @date 2022/3/17 0017 20:21
  */
+@Data
 public class Vote {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "blog_id")
+    
     private Integer blogId;
     
     @Operator

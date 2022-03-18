@@ -5,11 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author: zhangyu
- * @description: 通用返回值
- * @date: in 2021/10/29 10:39 下午
- */
 @Data
 @Builder
 @AllArgsConstructor
