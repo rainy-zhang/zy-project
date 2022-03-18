@@ -27,6 +27,9 @@ public class User {
     @Column(name = "username")
     private String username;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "email")
     private String email;
 
@@ -44,7 +47,7 @@ public class User {
 
     @Column(name = "seq")
     private Integer seq;
-
+    
     @Operator
     @Column(name = "operator")
     private Integer operator;

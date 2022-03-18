@@ -8,11 +8,6 @@ import org.springframework.beans.BeanUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 10:39
- */
 @Data
 @NoArgsConstructor
 public class AclModuleDto extends AclModule {

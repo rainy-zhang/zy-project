@@ -1,30 +1,33 @@
 package org.rainy.blog.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
+import org.rainy.common.beans.AuditFieldListener;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2022/3/17 0017 20:08
- */
+@Data
+@NoArgsConstructor
+@DynamicInsert
+@Entity
+@EntityListeners(value = AuditFieldListener.class)
+@Table(name = "t_tag")
 public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "remark")
+    private String remark;
 
     @Operator
     @Column(name = "operator")
@@ -37,5 +40,9 @@ public class Tag {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
+    
+    public static class Field {
+        public static final String NAME = "name";
+    }
     
 }

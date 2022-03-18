@@ -4,11 +4,6 @@ import org.rainy.common.beans.CommonResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 0011 16:28
- */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

@@ -10,11 +10,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 0009 13:37
- */
 @Data
 public class RoleParam {
 

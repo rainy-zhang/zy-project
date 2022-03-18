@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -27,9 +28,7 @@ public class JsonMapper {
 
 
     public static <T> String object2String(T src) {
-        if (src == null) {
-            return null;
-        }
+        Preconditions.checkNotNull(src, "jsonObject can not be null");
         try {
             return objectMapper.writeValueAsString(src);
         } catch (JsonProcessingException e) {
@@ -40,7 +39,7 @@ public class JsonMapper {
 
     public static <T> T string2Object(String src, TypeReference<T> typeReference) {
         if (StringUtils.isEmpty(src) || Objects.isNull(typeReference)) {
-            return null;
+            throw new NullPointerException("jsonStr can not be null");
         }
         try {
             return typeReference.getType().equals(String.class) ? (T) src : objectMapper.readValue(src, typeReference);

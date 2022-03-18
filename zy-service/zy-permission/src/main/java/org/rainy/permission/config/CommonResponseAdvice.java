@@ -11,11 +11,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/30 4:29 下午
- */
+import java.util.Objects;
+
 @RestControllerAdvice
 public class CommonResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
@@ -23,7 +20,7 @@ public class CommonResponseAdvice implements ResponseBodyAdvice<Object> {
         if (methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseAdvice.class)) {
             return false;
         }
-        if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseAdvice.class)) {
+        if (Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseAdvice.class)) {
             return false;
         }
         return true;

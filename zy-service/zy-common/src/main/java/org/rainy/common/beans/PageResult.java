@@ -1,4 +1,4 @@
-package org.rainy.permission.beans;
+package org.rainy.common.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,11 +7,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-/**
- * @description: 返回分页结果
- * @author: zhangyu
- * @date: in 2021/10/30 11:27 上午
- */
 @Data
 @Builder
 @AllArgsConstructor

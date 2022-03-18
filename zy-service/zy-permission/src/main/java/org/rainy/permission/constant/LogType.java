@@ -8,11 +8,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 14:35
- */
 @Getter
 @AllArgsConstructor
 public enum LogType {

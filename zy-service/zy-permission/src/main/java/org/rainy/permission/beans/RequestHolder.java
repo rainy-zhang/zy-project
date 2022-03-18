@@ -1,15 +1,9 @@
 package org.rainy.permission.beans;
 
-
 import org.rainy.permission.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @description:
- * @author: zhangyu
- * @date: in 2021/10/30 4:38 下午
- */
 public class RequestHolder {
 
     private static final ThreadLocal<HttpServletRequest> requestHolder = new ThreadLocal<>();

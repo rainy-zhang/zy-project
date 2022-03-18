@@ -10,11 +10,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 0009 16:32
- */
 @Data
 public class AclModuleParam {
 

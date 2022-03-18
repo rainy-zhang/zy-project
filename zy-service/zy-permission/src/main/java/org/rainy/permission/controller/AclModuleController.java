@@ -9,11 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 14:21
- */
 @RestController
 @RequestMapping(value = "/aclModule")
 public class AclModuleController {

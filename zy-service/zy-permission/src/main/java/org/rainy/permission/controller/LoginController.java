@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/8 11:43
- */
 @RestController
 public class LoginController {
 

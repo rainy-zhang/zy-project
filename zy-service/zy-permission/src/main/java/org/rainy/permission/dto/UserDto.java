@@ -8,14 +8,6 @@ import org.springframework.beans.BeanUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2021/11/25 0025 15:15
- */
 @Data
 @NoArgsConstructor
 public class UserDto {

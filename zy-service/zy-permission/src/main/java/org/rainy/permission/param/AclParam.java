@@ -10,11 +10,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 16:04
- */
 @Data
 public class AclParam {
 
@@ -22,7 +17,7 @@ public class AclParam {
     private Integer id;
 
     @NotNull(message = "权限名称不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
-    @Length(min = 1, max = 10, message = "权限名称长度需要在10个字符以内", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
+    @Length(min = 1, max = 10, message = "权限名称长度需要在10个字符以内", groups = {ValidateGroups.class, ValidateGroups.UPDATE.class})
     private String name;
 
     @NotNull(message = "所属权限模块不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})

@@ -14,11 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 0011 15:02
- */
 @Component
 public class RoleUserStrategy implements LogStrategy {
 

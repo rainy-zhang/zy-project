@@ -8,11 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/29 10:19 下午
- */
 @Repository
 public interface RoleAclRepository extends JpaRepository<RoleAcl, Integer> {
 

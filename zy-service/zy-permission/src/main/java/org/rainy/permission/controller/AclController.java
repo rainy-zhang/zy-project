@@ -5,11 +5,6 @@ import org.rainy.permission.param.AclParam;
 import org.rainy.permission.service.AclService;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 0010 14:11
- */
 @RestController
 @RequestMapping(value = "/acl")
 public class AclController {

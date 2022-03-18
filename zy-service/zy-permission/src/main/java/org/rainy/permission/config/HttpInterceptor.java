@@ -11,14 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2021/12/1 0001 15:31
- */
 @Slf4j
 public class HttpInterceptor implements HandlerInterceptor {
 

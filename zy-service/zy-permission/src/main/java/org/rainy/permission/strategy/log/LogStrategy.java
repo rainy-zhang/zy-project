@@ -2,11 +2,6 @@ package org.rainy.permission.strategy.log;
 
 import org.rainy.permission.constant.LogType;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 0011 11:46
- */
 public interface LogStrategy {
 
     LogType type();

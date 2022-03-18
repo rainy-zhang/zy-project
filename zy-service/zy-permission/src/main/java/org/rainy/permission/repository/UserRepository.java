@@ -6,11 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/29 10:16 下午
- */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 

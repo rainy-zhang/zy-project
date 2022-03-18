@@ -1,26 +1,29 @@
 package org.rainy.blog.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
+import org.rainy.common.beans.AuditFieldListener;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2022/3/17 0017 20:21
- */
 @Data
+@NoArgsConstructor
+@DynamicInsert
+@Entity
+@EntityListeners(value = AuditFieldListener.class)
+@Table(name = "t_vote")
 public class Vote {
-    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(name = "blog_id")
     private Integer blogId;
     
     @Operator

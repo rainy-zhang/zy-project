@@ -7,11 +7,6 @@ import org.rainy.permission.param.UserParam;
 import org.rainy.permission.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/8 11:43
- */
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -36,7 +31,7 @@ public class UserController {
      * @param id
      * @return
      */
-    @GetMapping(value = "/find/{id}")
+    @GetMapping(value = "/{id}")
     public User findUser(@PathVariable("id") Integer id) {
         return userService.findById(id);
     }
@@ -46,9 +41,9 @@ public class UserController {
      * @param pageQuery
      * @return
      */
-    @GetMapping(value = "/findAll")
-    public PageResult<User> pageList(@RequestBody PageQuery pageQuery) {
-        return userService.findByPage(pageQuery);
+    @GetMapping(value = "/users")
+    public PageResult<User> users(@RequestBody PageQuery pageQuery) {
+        return userService.pageResult(pageQuery);
     }
 
     /**

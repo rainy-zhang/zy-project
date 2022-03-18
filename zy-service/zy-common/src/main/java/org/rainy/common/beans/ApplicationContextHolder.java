@@ -1,4 +1,4 @@
-package org.rainy.permission.beans;
+package org.rainy.common.beans;
 
 import com.google.common.base.Preconditions;
 import org.springframework.beans.BeansException;
@@ -6,11 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 0011 10:21
- */
 @Component
 public class ApplicationContextHolder implements ApplicationContextAware {
 

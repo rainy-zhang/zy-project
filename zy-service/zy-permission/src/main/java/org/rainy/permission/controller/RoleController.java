@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 13:56
- */
 @RestController
 @RequestMapping(value = "/role")
 public class RoleController {

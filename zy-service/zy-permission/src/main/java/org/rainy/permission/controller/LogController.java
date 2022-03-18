@@ -7,11 +7,6 @@ import org.rainy.permission.param.LogSearchParam;
 import org.rainy.permission.service.LogService;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 19:31
- */
 @RestController
 @RequestMapping(value = "/log")
 public class LogController {

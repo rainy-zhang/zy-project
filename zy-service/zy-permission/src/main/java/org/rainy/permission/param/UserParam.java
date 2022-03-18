@@ -14,11 +14,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/29 10:30 下午
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -31,6 +26,10 @@ public class UserParam {
     @NotNull(message = "用户名不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     @Length(min = 5, max = 20, message = "用户名长度需要在5-20个字符之间", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private String username;
+
+    @NotNull(message = "昵称不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
+    @Length(min = 5, max = 20, message = "昵称长度需要在5-20个字符之间", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
+    private String nickname;
 
     @NotNull(message = "邮箱不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     @Length(min = 6, max = 50, message = "邮箱长度需要在6-50个字符之间", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})

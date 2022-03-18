@@ -24,11 +24,6 @@ import java.lang.reflect.Field;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 14:32
- */
 @Service
 public class LogService {
 

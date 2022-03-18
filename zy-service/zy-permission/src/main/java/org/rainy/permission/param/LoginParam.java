@@ -5,11 +5,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/10 0010 10:15
- */
 @Data
 public class LoginParam {
 

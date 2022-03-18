@@ -1,7 +1,7 @@
 package org.rainy.permission.service;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
-import org.assertj.core.util.Lists;
 import org.rainy.permission.dto.AclDto;
 import org.rainy.permission.dto.AclModuleDto;
 import org.rainy.permission.entity.Acl;
@@ -17,11 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 17:15
- */
 @Service
 public class TreeService {
 

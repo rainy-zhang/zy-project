@@ -1,23 +1,22 @@
 package org.rainy.blog.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.rainy.common.annotation.OperateIp;
 import org.rainy.common.annotation.OperateTime;
 import org.rainy.common.annotation.Operator;
+import org.rainy.common.beans.AuditFieldListener;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author wt1734
- * @date 2022/3/17 0017 20:09
- */
+@Data
+@NoArgsConstructor
+@DynamicInsert
+@Entity
+@EntityListeners(value = AuditFieldListener.class)
+@Table(name = "t_blog")
 public class Blog {
 
     @Id
@@ -32,6 +31,9 @@ public class Blog {
 
     @Column(name = "content")
     private String content;
+    
+    @Column(name = "html_content")
+    private String htmlContent;
 
     @Column(name = "user_id")
     private Integer userId;

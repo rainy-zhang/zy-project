@@ -15,11 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 15:16
- */
 @Component
 public class RoleAclStrategy implements LogStrategy {
 

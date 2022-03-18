@@ -13,11 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 13:35
- */
 @Component
 public class UserStrategy implements LogStrategy {
 

@@ -20,11 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @author: zhangyu
- * @description:
- * @date: in 2021/10/30 10:23 上午
- */
 @Service
 @Slf4j
 public class UserService {
@@ -37,7 +32,7 @@ public class UserService {
         this.logService = logService;
     }
 
-    public PageResult<User> findByPage(PageQuery pageQuery) {
+    public PageResult<User> pageResult(PageQuery pageQuery) {
         BeanValidator.validate(pageQuery);
         Page<User> UserPage = userRepository.findAll(pageQuery.convert());
         return PageResult.of(UserPage);

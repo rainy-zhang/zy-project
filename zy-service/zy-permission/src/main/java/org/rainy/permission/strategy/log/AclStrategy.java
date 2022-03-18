@@ -14,11 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/9 16:02
- */
 @Component
 public class AclStrategy implements LogStrategy {
 

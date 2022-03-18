@@ -1,4 +1,4 @@
-package org.rainy.permission.beans;
+package org.rainy.common.beans;
 
 import com.google.common.collect.Lists;
 import org.rainy.common.annotation.OperateIp;
@@ -13,11 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @description: 自动注入审计字段
- * @author: zhangyu
- * @date: in 2021/10/30 4:23 下午
- */
 @Component
 public class AuditFieldListener {
 

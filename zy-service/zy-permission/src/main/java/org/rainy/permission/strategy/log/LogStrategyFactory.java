@@ -10,11 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * @description:
- * @author: wt1734
- * @date: 2021/11/11 13:35
- */
 @Component
 public class LogStrategyFactory {
 
