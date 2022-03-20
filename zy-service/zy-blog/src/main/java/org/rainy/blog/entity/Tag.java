@@ -29,6 +29,9 @@ public class Tag {
     @Column(name = "remark")
     private String remark;
 
+    @Column(name = "seq")
+    private Integer seq;
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

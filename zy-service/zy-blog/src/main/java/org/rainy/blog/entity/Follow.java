@@ -23,8 +23,8 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "target_id")
+    private Integer targetId;
 
     @Operator
     @Column(name = "operator")

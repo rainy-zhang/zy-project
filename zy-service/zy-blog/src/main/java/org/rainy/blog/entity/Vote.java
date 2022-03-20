@@ -23,8 +23,8 @@ public class Vote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "blog_id")
-    private Integer blogId;
+    @Column(name = "article_id")
+    private Integer articleId;
     
     @Operator
     @Column(name = "operator")

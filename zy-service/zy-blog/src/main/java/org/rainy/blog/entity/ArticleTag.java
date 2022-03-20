@@ -16,15 +16,15 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
-@Table(name = "t_blog_tag")
-public class BlogTag {
+@Table(name = "t_article_tag")
+public class ArticleTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "blog_id")
-    private Integer blogId;
+    @Column(name = "article_id")
+    private Integer articleId;
 
     @Column(name = "tag_id")
     private Integer tagId;

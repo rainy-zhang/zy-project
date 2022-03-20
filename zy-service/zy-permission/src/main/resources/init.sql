@@ -12,8 +12,8 @@ CREATE TABLE `sys_acl` (
                            `status` int NOT NULL DEFAULT '1' COMMENT '状态码：0：无效，1：有效',
                            `seq` int NOT NULL DEFAULT '0' COMMENT '排序号(从小到大)',
                            `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                           `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                           `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                           `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                           `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限点表';
 
@@ -29,14 +29,11 @@ CREATE TABLE `sys_acl_module` (
                                   `status` int NOT NULL DEFAULT '1' COMMENT '状态码：0：无效，1：有效',
                                   `seq` int NOT NULL DEFAULT '0' COMMENT '排序号(从小到大)',
                                   `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                                  `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                                  `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                                  `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                                  `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限模块表';
 
--- ----------------------------
--- Table structure for sys_log
--- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
                                    `id` int NOT NULL AUTO_INCREMENT,
@@ -47,8 +44,8 @@ CREATE TABLE `sys_log` (
                                    `after` text COMMENT '操作后的值',
                                    `op_type` int NOT NULL DEFAULT '0' COMMENT '操作类型：1：新增，2：删除, 3:修改',
                                    `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                                   `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                                   `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                                   `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                                   `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                                    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统操作日志表';
 
@@ -63,8 +60,8 @@ CREATE TABLE `sys_role` (
                             `status` int NOT NULL DEFAULT '1' COMMENT '状态码：0：无效，1：有效',
                             `seq` int NOT NULL DEFAULT '0' COMMENT '排序号(从小到大)',
                             `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                            `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                            `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                            `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                            `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色表';
 
@@ -77,8 +74,8 @@ CREATE TABLE `sys_role_acl` (
                                 `role_id` int NOT NULL DEFAULT '-1' COMMENT '角色ID',
                                 `acl_id` int NOT NULL DEFAULT '-1' COMMENT '权限点ID',
                                 `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                                `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                                `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                                `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                                `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                                 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与权限点关联关系表';
 
@@ -91,8 +88,8 @@ CREATE TABLE `sys_role_user` (
                                  `role_id` int NOT NULL DEFAULT '-1' COMMENT '角色ID',
                                  `user_id` int NOT NULL DEFAULT '-1' COMMENT '角色ID',
                                  `operator` int NOT NULL DEFAULT '1'  COMMENT '操作者',
-                                 `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                                 `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                                 `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                                 `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与用户关联关系表';
 
@@ -111,8 +108,8 @@ CREATE TABLE `sys_user` (
                             `status` int NOT NULL DEFAULT '1' COMMENT '状态码：0：无效，1：有效',
                             `seq` int NOT NULL DEFAULT '0' COMMENT '排序号(从小到大)',
                             `operator` int NOT NULL  DEFAULT '1' COMMENT '操作者',
-                            `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次更新时间',
-                            `operate_ip` varchar(20) NOT NULL DEFAULT '' COMMENT '最后一个更新者的ip地址',
+                            `operate_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
+                            `operate_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0' COMMENT '操作人的ip地址',
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 

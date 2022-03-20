@@ -17,9 +17,9 @@ public class CommentController {
         this.commentService = commentService;
     }
     
-    @GetMapping(value = "/{blogId}")
-    public PageResult<Comment> comments(@RequestBody PageQuery pageQuery, @PathVariable("blogId") Integer blogId) {
-        return commentService.pageResult(pageQuery, blogId);
+    @GetMapping(value = "/{articleId}")
+    public PageResult<Comment> comments(@RequestBody PageQuery pageQuery, @PathVariable("articleId") Integer articleId) {
+        return commentService.pageResult(pageQuery, articleId);
     }
     
     @PostMapping(value = "/save")

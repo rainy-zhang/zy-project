@@ -1,9 +1,9 @@
 package org.rainy.blog.repository;
 
-import org.rainy.blog.entity.BlogTag;
+import org.rainy.blog.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BlogTagRepository extends JpaRepository<BlogTag, Integer> {
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
 }

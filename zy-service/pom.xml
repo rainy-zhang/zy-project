@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zy-permission</module>
-        <module>zy-blog</module>
+        <module>zy-article</module>
         <module>zy-search</module>
         <module>zy-common</module>
     </modules>

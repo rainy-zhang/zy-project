@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.rainy.blog.entity.Comment;
 import org.rainy.blog.param.CommentParam;
-import org.rainy.blog.repository.BlogRepository;
+import org.rainy.blog.repository.ArticleRepository;
 import org.rainy.blog.repository.CommentRepository;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
@@ -20,19 +20,19 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final BlogRepository blogRepository;
+    private final ArticleRepository articleRepository;
 
-    public CommentService(CommentRepository commentRepository, BlogRepository blogRepository) {
+    public CommentService(CommentRepository commentRepository, ArticleRepository articleRepository) {
         this.commentRepository = commentRepository;
-        this.blogRepository = blogRepository;
+        this.articleRepository = articleRepository;
     }
 
-    public PageResult<Comment> pageResult(PageQuery pageQuery, Integer blogId) {
-        Preconditions.checkNotNull(blogId, "博客id不能为空");
+    public PageResult<Comment> pageResult(PageQuery pageQuery, Integer articleId) {
+        Preconditions.checkNotNull(articleId, "文章id不能为空");
         Pageable pageable = pageQuery.convert();
         Example<Comment> example = Example.of(
                 Comment.builder()
-                        .blogId(blogId)
+                        .articleId(articleId)
                         .build()
         );
         Page<Comment> page = commentRepository.findAll(example, pageable);
@@ -42,7 +42,7 @@ public class CommentService {
     public void save(CommentParam commentParam) {
         BeanValidator.validate(commentParam);
         Comment comment = commentParam.convert();
-        blogRepository.findById(comment.getBlogId()).orElseThrow(() -> new BeanNotFoundException("博客不存在"));
+        articleRepository.findById(comment.getArticleId()).orElseThrow(() -> new BeanNotFoundException("文章不存在"));
         commentRepository.save(comment);
     }
 

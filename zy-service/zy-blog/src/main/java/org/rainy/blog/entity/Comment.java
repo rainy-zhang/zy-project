@@ -31,8 +31,8 @@ public class Comment {
     @Column(name = "reply_id")
     private Integer replyId;
     
-    @Column(name = "blog_id")
-    private Integer blogId;
+    @Column(name = "article_id")
+    private Integer articleId;
 
     @Column(name = "content")
     private String content;
