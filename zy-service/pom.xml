@@ -7,13 +7,14 @@
         <groupId>org.rainy</groupId>
         <version>1.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>zy-service</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>zy-permission</module>
-        <module>zy-article</module>
+        <module>zy-blog</module>
         <module>zy-search</module>
         <module>zy-common</module>
     </modules>

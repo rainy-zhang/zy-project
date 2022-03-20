@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,26 +12,27 @@ import org.rainy.common.beans.AuditFieldListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @NoArgsConstructor
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
-@Table(name = "t_tag")
-public class Tag {
+@Table(name = "t_category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "name")
     private String name;
-    
-    @Column(name = "remark")
-    private String remark;
 
     @Column(name = "seq")
     private Integer seq;
+
+    @Column(name = "remark")
+    private String remark;
 
     @Operator
     @Column(name = "operator")
@@ -43,5 +45,5 @@ public class Tag {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
 }

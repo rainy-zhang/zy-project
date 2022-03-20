@@ -14,6 +14,7 @@
     <artifactId>zy-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+
     <modules>
         <module>zy-service</module>
         <module>zy-gateway</module>

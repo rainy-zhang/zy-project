@@ -44,6 +44,12 @@ public class Article {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "category_id")
+    private Integer categoryId;
+
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
+
     @Operator
     @Column(name = "operator")
     private Integer operator;
