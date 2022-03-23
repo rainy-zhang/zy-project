@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @Entity
@@ -22,7 +24,7 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "user_id")
     private Integer userId;
 
@@ -43,5 +45,5 @@ public class Message {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
 }

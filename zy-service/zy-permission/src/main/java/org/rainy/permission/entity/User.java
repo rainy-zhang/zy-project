@@ -36,8 +36,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "status")
     private Integer status;

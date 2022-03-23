@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,20 +15,21 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
 @Table(name = "t_follow")
 public class Follow {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "target_user_id")
     private Integer targetUserId;
-    
+
     @Column(name = "email")
     private String email;
 
@@ -42,5 +44,5 @@ public class Follow {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
 }

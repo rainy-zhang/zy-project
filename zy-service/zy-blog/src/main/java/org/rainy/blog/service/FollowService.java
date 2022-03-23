@@ -28,7 +28,7 @@ public class FollowService {
         follow.setOperator(userDto.getId());
         followRepository.save(follow);
     }
-    
+
     public void unfollow() {
         // TODO: 
         //  1. 获取会话中的用户ID
@@ -36,5 +36,5 @@ public class FollowService {
         Integer id = null;
         followRepository.deleteById(id);
     }
-    
+
 }

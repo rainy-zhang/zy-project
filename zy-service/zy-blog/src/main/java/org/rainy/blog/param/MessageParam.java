@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class MessageParam {
-    
+
     @NotNull(message = "消息ID不能为空", groups = {ValidateGroups.UPDATE.class})
     private Integer id;
 
@@ -21,14 +21,14 @@ public class MessageParam {
 
     @NotNull(message = "用户ID不能为空", groups = {ValidateGroups.UPDATE.class})
     private Integer userId;
-    
+
     @NotNull(message = "创建时间不能为空", groups = {ValidateGroups.UPDATE.class})
     private LocalDateTime createTime;
-    
+
     public Message convert() {
         Message message = new Message();
         BeanUtils.copyProperties(this, message);
         return message;
     }
-    
+
 }

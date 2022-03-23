@@ -25,7 +25,7 @@ public class LikeService {
         Preconditions.checkNotNull(articleId, "文章ID不能为空");
         Like like = new Like(articleId);
         likeRepository.save(like);
-        articleService.increLike(articleId);
+        articleService.increaseLike(articleId);
         log.info("点赞成功，articleId：{}, like：{}", articleId, like);
     }
 

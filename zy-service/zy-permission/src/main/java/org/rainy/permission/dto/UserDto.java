@@ -20,7 +20,7 @@ public class UserDto {
 
     private String telephone;
 
-    private String remark;
+    private String description;
 
     private Integer status;
 

@@ -5,18 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserDto {
+public class CategoryDto {
 
     private Integer id;
 
-    private String nickname;
+    private String name;
 
-    private String email;
+    private Integer seq;
 
     private String description;
+
+    private Long articleCount;
 
 }

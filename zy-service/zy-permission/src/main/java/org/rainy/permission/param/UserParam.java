@@ -40,8 +40,8 @@ public class UserParam {
     @Length(min = 5, max = 20, message = "密码长度需要在5-20个字符之间", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private String password;
 
-    @Length(max = 200, message = "备注长度需要在200个字符以内", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    private String remark;
+    @Length(max = 200, message = "描述长度需要在200个字符以内", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
+    private String description;
 
     @NotNull(message = "用户状态不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     @Min(value = 0, message = "用户状态不合法", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})

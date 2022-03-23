@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Integer>, JpaSpecificationExecutor<Tag> {
-    
+
     List<Tag> findByNameContaining(String name);
-    
+
     Tag findByName(String name);
-    
+
 }

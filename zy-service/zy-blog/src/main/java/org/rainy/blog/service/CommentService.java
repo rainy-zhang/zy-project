@@ -14,10 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 @Slf4j
 @Service
 public class CommentService {
@@ -42,7 +38,7 @@ public class CommentService {
 
     public long countByArticleId(Integer articleId) {
         Preconditions.checkNotNull(articleId, "文章id不能为空");
-        Specification<Comment> specification = (root, query,criteriaBuilder) -> criteriaBuilder.equal(root.get(Comment.COLUMN.ARTICLE_ID), articleId);
+        Specification<Comment> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Comment.COLUMN.ARTICLE_ID), articleId);
         return commentRepository.count(specification);
     }
 

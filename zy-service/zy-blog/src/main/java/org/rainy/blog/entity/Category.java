@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @Entity
@@ -31,8 +33,8 @@ public class Category {
     @Column(name = "seq")
     private Integer seq;
 
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "description")
+    private String description;
 
     @Operator
     @Column(name = "operator")
@@ -45,5 +47,9 @@ public class Category {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
+
+    public static class COLUMN {
+        public static final String SEQ = "seq";
+    }
 
 }

@@ -103,7 +103,7 @@ CREATE TABLE `sys_user` (
                             `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '昵称',
                             `email` varchar(30) NOT NULL DEFAULT '' COMMENT '邮箱',
                             `password` varchar(50) NOT NULL DEFAULT '' COMMENT '密码',
-                            `remark` varchar(50) NOT NULL DEFAULT '' COMMENT '备注',
+                            `description` varchar(50) NOT NULL DEFAULT '' COMMENT '描述',
                             `status` int NOT NULL DEFAULT '1' COMMENT '状态码：0：无效，1：有效',
                             `seq` int NOT NULL DEFAULT '0' COMMENT '排序号(从小到大)',
                             `register_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',

@@ -34,7 +34,7 @@ public class TagService {
         Preconditions.checkNotNull(ids, "标签ID列表不能为空");
         return tagRepository.findAllById(ids);
     }
-    
+
     public void save(TagParam tagParam) {
         BeanValidator.validate(tagParam, ValidateGroups.INSERT.class);
         if (tagRepository.findByName(tagParam.getName()) != null) {
@@ -43,7 +43,7 @@ public class TagService {
         Tag tag = tagParam.convert();
         tagRepository.save(tag);
     }
-    
+
     public void update(TagParam tagParam) {
         BeanValidator.validate(tagParam, ValidateGroups.UPDATE.class);
         if (tagRepository.findByName(tagParam.getName()) != null) {
@@ -52,7 +52,7 @@ public class TagService {
         Tag tag = tagParam.convert();
         tagRepository.save(tag);
     }
-    
+
     public void delete(Integer id) {
         Preconditions.checkNotNull(id, "标签id不能为空");
         tagRepository.deleteById(id);

@@ -13,10 +13,10 @@ import java.util.List;
 
 @Data
 public class ArticleParam {
-    
+
     @NotNull(message = "文章ID不能为空", groups = {ValidateGroups.UPDATE.class})
     private Integer id;
-    
+
     @NotBlank(message = "标题不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     @Length(min = 1, max = 50, message = "标题长度需要在1-50之间", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private String title;
@@ -28,10 +28,10 @@ public class ArticleParam {
     @NotBlank(message = "文章内容不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     @Length(min = 1, max = 5000, message = "文章内容长度需要在1-5000之间", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private String content;
-    
+
     @NotNull(message = "请选择分类", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private Integer categoryId;
-    
+
     @NotNull(message = "至少选择一个标签", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private List<Integer> tagIds;
 
@@ -40,11 +40,11 @@ public class ArticleParam {
 
     @NotNull(message = "评论分页参数不能为空", groups = {ValidateGroups.SELECT.class})
     private PageQuery commentPageQuery;
-    
+
     public Article convert() {
         Article article = new Article();
         BeanUtils.copyProperties(this, article);
         return article;
     }
-    
+
 }

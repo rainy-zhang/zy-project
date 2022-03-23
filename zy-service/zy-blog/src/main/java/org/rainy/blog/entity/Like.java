@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @Entity
@@ -24,10 +26,10 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "article_id")
     private Integer articleId;
-    
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

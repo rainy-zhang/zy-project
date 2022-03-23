@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
@@ -30,7 +32,7 @@ public class Comment {
      */
     @Column(name = "reply_id")
     private Integer replyId;
-    
+
     @Column(name = "article_id")
     private Integer articleId;
 
@@ -48,10 +50,10 @@ public class Comment {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
     public static class COLUMN {
-        public static final String ARTICLE_ID = "article_id";
+        public static final String ARTICLE_ID = "articleId";
     }
-    
-    
+
+
 }

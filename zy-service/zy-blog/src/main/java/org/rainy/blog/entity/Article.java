@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @Entity
@@ -32,22 +34,25 @@ public class Article {
 
     @Column(name = "content")
     private String content;
-    
+
     @Column(name = "html_content")
     private String htmlContent;
 
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "reading")
-    private Long reading;
+    @Column(name = "reads")
+    private Long reads;
 
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "seq")
+    private Integer seq;
+
     @Column(name = "category_id")
     private Integer categoryId;
-    
+
     @Column(name = "likes")
     private Long likes;
 
@@ -65,9 +70,10 @@ public class Article {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
     public static class COLUMN {
         public static final String STATUS = "status";
+        public static final String CATEGORY_ID = "categoryId";
     }
 
     @Override
@@ -75,11 +81,11 @@ public class Article {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Article article = (Article) o;
-        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(summary, article.summary) && Objects.equals(content, article.content) && Objects.equals(htmlContent, article.htmlContent) && Objects.equals(userId, article.userId) && Objects.equals(reading, article.reading) && Objects.equals(status, article.status) && Objects.equals(categoryId, article.categoryId) && Objects.equals(likes, article.likes) && Objects.equals(createTime, article.createTime) && Objects.equals(operator, article.operator) && Objects.equals(operateTime, article.operateTime) && Objects.equals(operateIp, article.operateIp);
+        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(summary, article.summary) && Objects.equals(content, article.content) && Objects.equals(htmlContent, article.htmlContent) && Objects.equals(userId, article.userId) && Objects.equals(reads, article.reads) && Objects.equals(status, article.status) && Objects.equals(categoryId, article.categoryId) && Objects.equals(likes, article.likes) && Objects.equals(createTime, article.createTime) && Objects.equals(operator, article.operator) && Objects.equals(operateTime, article.operateTime) && Objects.equals(operateIp, article.operateIp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, summary, content, htmlContent, userId, reading, status, categoryId, likes, createTime, operator, operateTime, operateIp);
+        return Objects.hash(id, title, summary, content, htmlContent, userId, reads, status, categoryId, likes, createTime, operator, operateTime, operateIp);
     }
 }

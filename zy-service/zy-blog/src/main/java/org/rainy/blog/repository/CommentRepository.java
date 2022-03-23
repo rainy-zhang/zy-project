@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer>, JpaSpecificationExecutor<Comment> {
-    
+
     List<Comment> findByArticleId(Integer articleId);
-    
+
 }

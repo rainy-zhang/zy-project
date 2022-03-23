@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 public class MessageService {
-    
+
     private final MessageRepository messageRepository;
 
     public MessageService(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
-    
+
     public void save(MessageParam messageParam) {
         BeanValidator.validate(messageParam, ValidateGroups.INSERT.class);
         // TODO: 调用permission服务创建用户 
@@ -34,7 +34,7 @@ public class MessageService {
         message.setOperator(userDto.getId());
         messageRepository.save(message);
     }
-    
+
     public void update(MessageParam messageParam) {
         BeanValidator.validate(messageParam, ValidateGroups.UPDATE.class);
         Message message = messageParam.convert();
@@ -44,7 +44,7 @@ public class MessageService {
         }
         messageRepository.save(message);
     }
-    
+
     public void delete(Integer id) {
         Preconditions.checkNotNull(id, "消息ID不能为空");
         Message message = messageRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("消息已不存在"));
@@ -54,5 +54,5 @@ public class MessageService {
         }
         messageRepository.deleteById(id);
     }
-    
+
 }

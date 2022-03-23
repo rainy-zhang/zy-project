@@ -28,11 +28,11 @@ public class FollowParam {
 
     @NotNull(message = "目标用户ID不能为空", groups = {ValidateGroups.INSERT.class})
     private Integer targetUserId;
-    
+
     public Follow convert() {
         Follow follow = new Follow();
         BeanUtils.copyProperties(this, follow);
         return follow;
     }
-    
+
 }

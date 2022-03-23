@@ -6,17 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+@AllArgsConstructor
+@Data
+public class Statistics {
 
-    private Integer id;
+    private Long articleCount;
 
-    private String nickname;
-
-    private String email;
-
-    private String description;
+    private Long followCount;
 
 }

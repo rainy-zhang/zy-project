@@ -14,17 +14,11 @@ import org.rainy.common.beans.PageResult;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.util.BeanValidator;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,7 +43,7 @@ public class ArticleService {
     public PageResult<ArticleDto> articlePage(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.SELECT.class);
         Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), ArticleStatus.NORMAL.getCode());
-        
+
         PageQuery articlePageQuery = articleParam.getArticlePageQuery();
         PageQuery commentPageQuery = articleParam.getCommentPageQuery();
         Page<Article> page = articleRepository.findAll(specification, articlePageQuery.convert());
@@ -60,7 +54,7 @@ public class ArticleService {
             PageResult<Comment> commentPageResult = commentService.pageResult(commentPageQuery, articleId);
             return new ArticleDto.Builder()
                     .article(article)
-                    .category(categoryService.findByArticleId(articleId))
+                    .category(categoryService.findById(article.getCategoryId()))
                     .tags(tagService.findByIds(tagIds))
                     .comments(commentPageResult.getData())
                     .commentCount(commentService.countByArticleId(articleId))
@@ -102,41 +96,49 @@ public class ArticleService {
     }
 
     public void delete(Integer id) {
-        Preconditions.checkNotNull(id);
+        Preconditions.checkNotNull(id, "文章id不能为空");
         articleRepository.deleteById(id);
         log.info("删除文章成功，articleId：{}", id);
     }
 
+    public long countByCategoryId(Integer categoryId) {
+        Preconditions.checkNotNull(categoryId, "分类id不能为空");
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.CATEGORY_ID), categoryId);
+        return articleRepository.count(specification);
+    }
+
     /**
      * 减少文章点赞数量
+     *
      * @param id
      */
     public void subtractLike(Integer id) {
         Article article = findById(id);
-        article.setLikes(article.getLikes()-1);
+        article.setLikes(article.getLikes() - 1);
         articleRepository.save(article);
     }
 
     /**
      * 增加文章点赞数量
+     *
      * @param id
      */
-    public void increLike(Integer id) {
+    public void increaseLike(Integer id) {
         Article article = findById(id);
-        article.setLikes(article.getLikes()+1);
+        article.setLikes(article.getLikes() + 1);
         articleRepository.save(article);
     }
 
     /**
      * 增加文章阅读次数
+     *
      * @param id
      */
-    public void increReading(Integer id) {
+    public void increaseReading(Integer id) {
         Article article = findById(id);
-        article.setReading(article.getReading());
+        article.setReads(article.getReads() + 1);
         articleRepository.save(article);
     }
 
-    
 
 }
