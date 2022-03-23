@@ -46,6 +46,9 @@ public class Article {
 
     @Column(name = "category_id")
     private Integer categoryId;
+    
+    @Column(name = "likes")
+    private Long likes;
 
     @Column(name = "create_time")
     private LocalDateTime createTime;

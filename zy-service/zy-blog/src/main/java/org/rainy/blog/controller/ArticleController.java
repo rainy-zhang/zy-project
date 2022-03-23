@@ -1,5 +1,6 @@
 package org.rainy.blog.controller;
 
+import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.param.ArticleParam;
 import org.rainy.blog.service.ArticleService;
@@ -18,7 +19,7 @@ public class ArticleController {
     }
     
     @GetMapping(value = "/articles")
-    public PageResult<Article> articles(@RequestBody PageQuery pageQuery) {
+    public PageResult<ArticleDto> articles(@RequestBody PageQuery pageQuery) {
         return articleService.pageResult(pageQuery);
     }
     

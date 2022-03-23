@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
-@Table(name = "t_vote")
-public class Vote {
+@Table(name = "t_like")
+public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -29,6 +29,11 @@ public class TagService {
         }
         return tagRepository.findByNameContaining(name);
     }
+
+    public List<Tag> findByIds(List<Integer> ids) {
+        Preconditions.checkNotNull(ids, "标签ID列表不能为空");
+        return tagRepository.findAllById(ids);
+    }
     
     public void save(TagParam tagParam) {
         BeanValidator.validate(tagParam, ValidateGroups.INSERT.class);
