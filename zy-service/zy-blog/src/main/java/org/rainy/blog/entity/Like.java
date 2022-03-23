@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,6 +12,7 @@ import org.rainy.common.beans.AuditFieldListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @NoArgsConstructor
 @DynamicInsert
@@ -37,5 +39,8 @@ public class Like {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
+    public Like(Integer articleId) {
+        this.articleId = articleId;
+    }
 }

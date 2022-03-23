@@ -1,5 +1,6 @@
 package org.rainy.blog.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,6 +12,7 @@ import org.rainy.common.beans.AuditFieldListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Data
 @NoArgsConstructor
 @DynamicInsert
@@ -23,8 +25,11 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "target_id")
-    private Integer targetId;
+    @Column(name = "target_user_id")
+    private Integer targetUserId;
+    
+    @Column(name = "email")
+    private String email;
 
     @Operator
     @Column(name = "operator")

@@ -19,7 +19,8 @@ public class ArticleTagService {
         this.articleTagRepository = articleTagRepository;
     }
     
-    public void save(List<Integer> tagIds, Integer articleId) {
+    public void changeArticleTag(List<Integer> tagIds, Integer articleId) {
+        articleTagRepository.deleteByArticleId(articleId);
         Preconditions.checkNotNull(tagIds, "标签ID列表不能为空");
         Preconditions.checkNotNull(articleId, "文章ID不能为空");
         List<ArticleTag> articleTags = tagIds.stream().map(tagId -> ArticleTag.builder().tagId(tagId).articleId(articleId).build()).collect(Collectors.toList());

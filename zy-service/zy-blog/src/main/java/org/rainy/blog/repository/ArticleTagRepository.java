@@ -13,4 +13,6 @@ public interface ArticleTagRepository extends JpaRepository<ArticleTag, Integer>
     @Query(nativeQuery = true, value = "SELECT tagId FROM t_article_tag WHERE article_id = :articleId")
     List<Integer> findTagIdsByArticleId(Integer articleId);
     
+    void deleteByArticleId(Integer articleId);
+    
 }

@@ -10,6 +10,7 @@ import org.rainy.common.beans.AuditFieldListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -65,4 +66,20 @@ public class Article {
     @Column(name = "operate_ip")
     private String operateIp;
     
+    public static class COLUMN {
+        public static final String STATUS = "status";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(summary, article.summary) && Objects.equals(content, article.content) && Objects.equals(htmlContent, article.htmlContent) && Objects.equals(userId, article.userId) && Objects.equals(reading, article.reading) && Objects.equals(status, article.status) && Objects.equals(categoryId, article.categoryId) && Objects.equals(likes, article.likes) && Objects.equals(createTime, article.createTime) && Objects.equals(operator, article.operator) && Objects.equals(operateTime, article.operateTime) && Objects.equals(operateIp, article.operateIp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, summary, content, htmlContent, userId, reading, status, categoryId, likes, createTime, operator, operateTime, operateIp);
+    }
 }

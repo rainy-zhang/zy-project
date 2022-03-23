@@ -49,4 +49,9 @@ public class Comment {
     @Column(name = "operate_ip")
     private String operateIp;
     
+    public static class COLUMN {
+        public static final String ARTICLE_ID = "article_id";
+    }
+    
+    
 }

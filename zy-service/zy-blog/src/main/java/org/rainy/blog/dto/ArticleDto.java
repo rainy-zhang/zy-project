@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.entity.Category;
+import org.rainy.blog.entity.Comment;
 import org.rainy.blog.entity.Tag;
 import org.rainy.common.util.CommonUtils;
 
@@ -20,8 +21,6 @@ public class ArticleDto {
 
     private Integer userId;
 
-    private String author;
-
     private Long reading;
 
     private Long likes;
@@ -32,17 +31,22 @@ public class ArticleDto {
 
     private List<Tag> tags;
     
+    private List<Comment> comments;
+    
+    private Long commentCount;
+    
     private ArticleDto(Builder builder) {
         this.id = builder.article.getId();
         this.title = builder.article.getTitle();
         this.summary = builder.article.getSummary();
         this.userId = builder.article.getUserId();
-        this.author = builder.author;
         this.reading = builder.article.getReading();
         this.likes = builder.article.getLikes();
         this.ago = CommonUtils.ago(builder.article.getCreateTime());
         this.category = builder.category;
         this.tags = builder.tags;
+        this.commentCount = builder.commentCount;
+        this.comments = builder.comments;
     }
     
     @Getter
@@ -54,7 +58,9 @@ public class ArticleDto {
         
         private List<Tag> tags;
 
-        private String author;
+        private List<Comment> comments;
+
+        private Long commentCount;
         
         public ArticleDto build() {
             return new ArticleDto(this);
@@ -75,10 +81,16 @@ public class ArticleDto {
             return this;
         }
         
-        public Builder author(String username) {
-            this.author = username;
+        public Builder comments(List<Comment> comments) {
+            this.comments = comments;
             return this;
         }
+        
+        public Builder commentCount(Long commentCount) {
+            this.commentCount = commentCount;
+            return this;
+        }
+        
         
     }
 

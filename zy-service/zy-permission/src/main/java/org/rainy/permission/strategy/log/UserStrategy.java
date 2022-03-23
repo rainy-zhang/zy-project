@@ -58,9 +58,6 @@ public class UserStrategy implements LogStrategy {
         if (userRepository.existsByEmail(beforeUser.getEmail())) {
             throw new IllegalParamException("email already in use");
         }
-        if (userRepository.existsByTelephone(beforeUser.getTelephone())) {
-            throw new IllegalParamException("telephone already in use");
-        }
         if (userRepository.existsByUsername(beforeUser.getUsername())) {
             throw new IllegalParamException("username already in use");
         }

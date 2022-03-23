@@ -45,7 +45,7 @@ public class User {
     @Column(name = "seq")
     private Integer seq;
     
-    @Column(name = "registerTime")
+    @Column(name = "register_time")
     private LocalDateTime registerTime;
     
     @Operator
@@ -60,16 +60,4 @@ public class User {
     @Column(name = "operate_ip")
     private String operateIp;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(remark, user.remark) && Objects.equals(status, user.status) && Objects.equals(seq, user.seq) && Objects.equals(operator, user.operator) && Objects.equals(operateTime, user.operateTime) && Objects.equals(operateIp, user.operateIp);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email, password, remark, status, seq, operator, operateTime, operateIp);
-    }
 }

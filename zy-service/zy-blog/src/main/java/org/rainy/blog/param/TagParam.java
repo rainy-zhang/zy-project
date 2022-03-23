@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class TagParam {
+
+    @NotNull(message = "标签ID不能为空", groups = {ValidateGroups.UPDATE.class})
+    private Integer id;
     
     @NotNull(message = "标签名称不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     @Length(min = 1, max = 10, message = "标签名称长度在1-10个字符之间", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})

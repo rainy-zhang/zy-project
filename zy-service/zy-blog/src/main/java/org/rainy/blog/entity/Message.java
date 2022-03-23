@@ -29,6 +29,9 @@ public class Message {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "create_time")
+    private LocalDateTime createTime;
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

@@ -11,8 +11,6 @@ public class LogSearchParam {
 
     private Integer status;
 
-    private String telephone;
-
     private String email;
 
     public Log convert() {

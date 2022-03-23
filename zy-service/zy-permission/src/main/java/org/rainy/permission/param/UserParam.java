@@ -36,10 +36,6 @@ public class UserParam {
     @Email(message = "邮箱格式错误", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private String email;
 
-    @NotNull(message = "手机号不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    @Length(min = 11, max = 15, message = "手机号长度错误", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    private String telephone;
-
     @NotNull(message = "密码不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     @Length(min = 5, max = 20, message = "密码长度需要在5-20个字符之间", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private String password;

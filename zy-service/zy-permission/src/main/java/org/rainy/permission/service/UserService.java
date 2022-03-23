@@ -53,9 +53,6 @@ public class UserService {
         if (userRepository.existsByEmail(userParam.getEmail())) {
             throw new IllegalParamException("email already in use");
         }
-        if (userRepository.existsByTelephone(userParam.getTelephone())) {
-            throw new IllegalParamException("telephone already in use");
-        }
         if (userRepository.existsByUsername(userParam.getUsername())) {
             throw new IllegalParamException("username already in use");
         }
@@ -74,8 +71,8 @@ public class UserService {
 
         User originUser = originUserOptional.orElseThrow(() -> new BeanNotFoundException("user not found"));
         User user = userParam.convert();
-        if (!Objects.equals(originUser.getEmail(), userParam.getEmail()) || !Objects.equals(originUser.getTelephone(), userParam.getTelephone()) || !Objects.equals(originUser.getUsername(), userParam.getUsername())) {
-            throw new IllegalParamException("telephone or email or username can not modified");
+        if (!Objects.equals(originUser.getEmail(), userParam.getEmail()) || !Objects.equals(originUser.getUsername(), userParam.getUsername())) {
+            throw new IllegalParamException("email or username can not modified");
         }
         if (user.equals(originUser)) {
             throw new IllegalParamException("user equals originUser do nothing");

@@ -8,7 +8,8 @@ create table `zy-blog`.t_article
     html_content mediumtext not null comment 'html格式的文章内容',
     user_id int not null comment '发布人id',
     reading bigint not null comment '阅读量',
-    status int not null comment '博客状态，1：正常、2：草稿、3：隐藏、-1：删除',
+    likes bigint not null comment '点赞数',
+    status int not null comment '博客状态，-1：删除、0：隐藏、1：正常、2：草稿',
     create_time datetime not null comment '创建时间',
     category_id int not null comment '分类id',
     operator int not null comment '操作人',
@@ -45,8 +46,9 @@ create table `zy-blog`.t_comment
 create table `zy-blog`.t_follow
 (
     id int not null
-        primary key,
-    target_id int not null comment '目标用户ID',
+        primary key comment '用户ID',
+    target_user_id int not null comment '目标用户ID',
+    email int not null comment '邮箱',
     operator int not null comment '操作人',
     operate_time datetime not null comment '操作时间',
     operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'
@@ -59,6 +61,7 @@ create table `zy-blog`.t_message
         primary key,
     user_id int not null comment '用户ID',
     content varchar(250) default '' not null comment '留言内容',
+    create_time datetime not null comment '创建时间',
     operator int not null comment '操作人',
     operate_time datetime not null comment '操作时间',
     operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'

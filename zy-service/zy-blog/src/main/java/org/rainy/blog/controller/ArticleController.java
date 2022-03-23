@@ -19,8 +19,8 @@ public class ArticleController {
     }
     
     @GetMapping(value = "/articles")
-    public PageResult<ArticleDto> articles(@RequestBody PageQuery pageQuery) {
-        return articleService.pageResult(pageQuery);
+    public PageResult<ArticleDto> articlePage(@RequestBody ArticleParam articleParam) {
+        return articleService.articlePage(articleParam);
     }
     
     @GetMapping(value = "/{id}")
