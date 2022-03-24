@@ -2,15 +2,16 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.rainy.blog.constant.ArticleStatus;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
+import org.rainy.blog.entity.ArticleWithBlobs;
 import org.rainy.blog.entity.Comment;
 import org.rainy.blog.param.ArticleParam;
 import org.rainy.blog.repository.ArticleRepository;
+import org.rainy.blog.repository.ArticleWithBlogRepository;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
+import org.rainy.common.constant.CommonStatus;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.util.BeanValidator;
@@ -20,20 +21,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final ArticleWithBlogRepository articleWithBlogRepository;
     private final ArticleTagService articleTagService;
     private final CategoryService categoryService;
     private final TagService tagService;
     private final CommentService commentService;
 
-    public ArticleService(ArticleRepository articleRepository, ArticleTagService articleTagService, CategoryService categoryService, TagService tagService, CommentService commentService) {
+    public ArticleService(ArticleRepository articleRepository, ArticleWithBlogRepository articleWithBlogRepository, ArticleTagService articleTagService, CategoryService categoryService, TagService tagService, CommentService commentService) {
         this.articleRepository = articleRepository;
+        this.articleWithBlogRepository = articleWithBlogRepository;
         this.articleTagService = articleTagService;
         this.categoryService = categoryService;
         this.tagService = tagService;
@@ -42,7 +44,7 @@ public class ArticleService {
 
     public PageResult<ArticleDto> articlePage(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.SELECT.class);
-        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), ArticleStatus.NORMAL.getCode());
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
 
         PageQuery articlePageQuery = articleParam.getArticlePageQuery();
         PageQuery commentPageQuery = articleParam.getCommentPageQuery();
@@ -66,7 +68,7 @@ public class ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public void save(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.INSERT.class);
-        Article article = articleRepository.save(articleParam.convert());
+        ArticleWithBlobs article = articleWithBlogRepository.save(articleParam.convert());
 
         Integer articleId = article.getId();
         List<Integer> tagIds = articleParam.getTagIds();
@@ -77,17 +79,20 @@ public class ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public void update(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.UPDATE.class);
-        Integer articleId = articleParam.getId();
-        Article originArticle = findById(articleId);
-        List<Integer> originTagIds = articleTagService.findTagIdsByArticleId(articleId);
-        List<Integer> tagIds = articleParam.getTagIds();
-        if (!CollectionUtils.isEqualCollection(originTagIds, tagIds)) {
-            articleTagService.changeArticleTag(tagIds, articleId);
-        }
-        Article article = articleParam.convert();
-        if (Objects.equals(article, originArticle)) {
-            articleRepository.save(article);
-        }
+        ArticleWithBlobs article = articleParam.convert();
+        Integer articleId = article.getId();
+        articleTagService.changeArticleTag(articleParam.getTagIds(), articleId);
+        articleWithBlogRepository.save(article);
+    }
+
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public ArticleWithBlobs findBlobsById(Integer id) {
+        Preconditions.checkNotNull(id, "文章id不能为空");
+        return articleWithBlogRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("文章不存在"));
     }
 
     public Article findById(Integer id) {
@@ -140,5 +145,8 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-
+    public Long count() {
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        return articleRepository.count(specification);
+    }
 }

@@ -39,6 +39,12 @@ public class Comment {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "creator")
+    private Integer creator;
+    
+    @Column(name = "status")
+    private Integer status;
+    
     @Operator
     @Column(name = "operator")
     private Integer operator;

@@ -27,9 +27,6 @@ public class Follow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "target_user_id")
-    private Integer targetUserId;
-
     @Column(name = "email")
     private String email;
 

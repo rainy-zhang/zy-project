@@ -2,9 +2,13 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
+import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Like;
+import org.rainy.blog.param.LikeParam;
 import org.rainy.blog.repository.LikeRepository;
+import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
+import org.rainy.common.util.BeanValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +25,12 @@ public class LikeService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void like(Integer articleId) {
-        Preconditions.checkNotNull(articleId, "文章ID不能为空");
-        Like like = new Like(articleId);
+    public void like(LikeParam likeParam) {
+        BeanValidator.validate(likeParam, ValidateGroups.INSERT.class);
+        Like like = likeParam.convert();
         likeRepository.save(like);
-        articleService.increaseLike(articleId);
-        log.info("点赞成功，articleId：{}, like：{}", articleId, like);
+        articleService.increaseLike(like.getArticleId());
+        log.info("点赞成功，articleId：{}, like：{}", like.getArticleId(), like);
     }
 
     @Transactional(rollbackFor = Exception.class)

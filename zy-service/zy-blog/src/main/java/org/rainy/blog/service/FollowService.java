@@ -21,20 +21,18 @@ public class FollowService {
 
     public void follow(FollowParam followParam) {
         BeanValidator.validate(followParam, ValidateGroups.INSERT.class);
-        // TODO: 获取请求参数中其它用户信息，调用permission服务创建用户
-        UserDto userDto = null;
         Follow follow = followParam.convert();
-        follow.setId(userDto.getId());
-        follow.setOperator(userDto.getId());
         followRepository.save(follow);
     }
 
     public void unfollow() {
         // TODO: 
         //  1. 获取会话中的用户ID
-        //  2. 调用permission服务根据用户ID删除用户
         Integer id = null;
         followRepository.deleteById(id);
     }
 
+    public Long count() {
+        return followRepository.count();
+    }
 }

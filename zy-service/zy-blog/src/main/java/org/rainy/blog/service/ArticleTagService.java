@@ -2,6 +2,7 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.rainy.blog.entity.ArticleTag;
 import org.rainy.blog.repository.ArticleTagRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class ArticleTagService {
         articleTagRepository.deleteByArticleId(articleId);
         Preconditions.checkNotNull(tagIds, "标签ID列表不能为空");
         Preconditions.checkNotNull(articleId, "文章ID不能为空");
+
+        List<Integer> originTagIds = articleTagRepository.findTagIdsByArticleId(articleId);
+        if (CollectionUtils.isEqualCollection(originTagIds, tagIds)) {
+            return;
+        }
         List<ArticleTag> articleTags = tagIds.stream().map(tagId -> ArticleTag.builder().tagId(tagId).articleId(articleId).build()).collect(Collectors.toList());
         articleTagRepository.saveAll(articleTags);
     }

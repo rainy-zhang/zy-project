@@ -2,7 +2,7 @@ package org.rainy.blog.param;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.rainy.blog.entity.Article;
+import org.rainy.blog.entity.ArticleWithBlobs;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.constant.ValidateGroups;
 import org.springframework.beans.BeanUtils;
@@ -41,8 +41,8 @@ public class ArticleParam {
     @NotNull(message = "评论分页参数不能为空", groups = {ValidateGroups.SELECT.class})
     private PageQuery commentPageQuery;
 
-    public Article convert() {
-        Article article = new Article();
+    public ArticleWithBlobs convert() {
+        ArticleWithBlobs article = new ArticleWithBlobs();
         BeanUtils.copyProperties(this, article);
         return article;
     }

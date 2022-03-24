@@ -2,7 +2,6 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Message;
 import org.rainy.blog.param.MessageParam;
 import org.rainy.blog.repository.MessageRepository;
@@ -27,11 +26,7 @@ public class MessageService {
 
     public void save(MessageParam messageParam) {
         BeanValidator.validate(messageParam, ValidateGroups.INSERT.class);
-        // TODO: 调用permission服务创建用户 
-        UserDto userDto = null;
         Message message = messageParam.convert();
-        message.setUserId(userDto.getId());
-        message.setOperator(userDto.getId());
         messageRepository.save(message);
     }
 

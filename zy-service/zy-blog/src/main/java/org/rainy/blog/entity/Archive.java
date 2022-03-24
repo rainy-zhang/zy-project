@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @Entity
 @EntityListeners(value = AuditFieldListener.class)
-@Table(name = "t_tag")
-public class Tag {
+@Table(name = "t_archive")
+public class Archive {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +28,11 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "seq")
-    private Integer seq;
+    @Column(name = "status")
+    private Integer status;
 
     @Operator
     @Column(name = "operator")
@@ -46,8 +46,4 @@ public class Tag {
     @Column(name = "operate_ip")
     private String operateIp;
     
-    public static class COLUMN {
-        public static final String STATUS = "status";
-    }
-
 }

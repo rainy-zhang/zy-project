@@ -25,12 +25,15 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "creator")
+    private Integer creator;
 
     @Column(name = "content")
     private String content;
 
+    @Column(name = "status")
+    private Integer status;
+    
     @Column(name = "create_time")
     private LocalDateTime createTime;
 

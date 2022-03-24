@@ -2,6 +2,7 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
+import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Comment;
 import org.rainy.blog.param.CommentParam;
 import org.rainy.blog.repository.CommentRepository;
@@ -27,12 +28,8 @@ public class CommentService {
     public PageResult<Comment> pageResult(PageQuery pageQuery, Integer articleId) {
         Preconditions.checkNotNull(articleId, "文章id不能为空");
         Pageable pageable = pageQuery.convert();
-        Example<Comment> example = Example.of(
-                Comment.builder()
-                        .articleId(articleId)
-                        .build()
-        );
-        Page<Comment> page = commentRepository.findAll(example, pageable);
+        Specification<Comment> specification = (root, query, builder) -> builder.equal(root.get(Comment.COLUMN.ARTICLE_ID), articleId);
+        Page<Comment> page = commentRepository.findAll(specification, pageable);
         return PageResult.of(page);
     }
 

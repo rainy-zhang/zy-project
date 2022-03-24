@@ -32,12 +32,6 @@ public class Article {
     @Column(name = "summary")
     private String summary;
 
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "html_content")
-    private String htmlContent;
-
     @Column(name = "user_id")
     private Integer userId;
 
@@ -76,16 +70,4 @@ public class Article {
         public static final String CATEGORY_ID = "categoryId";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Article article = (Article) o;
-        return Objects.equals(id, article.id) && Objects.equals(title, article.title) && Objects.equals(summary, article.summary) && Objects.equals(content, article.content) && Objects.equals(htmlContent, article.htmlContent) && Objects.equals(userId, article.userId) && Objects.equals(reads, article.reads) && Objects.equals(status, article.status) && Objects.equals(categoryId, article.categoryId) && Objects.equals(likes, article.likes) && Objects.equals(createTime, article.createTime) && Objects.equals(operator, article.operator) && Objects.equals(operateTime, article.operateTime) && Objects.equals(operateIp, article.operateIp);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, summary, content, htmlContent, userId, reads, status, categoryId, likes, createTime, operator, operateTime, operateIp);
-    }
 }

@@ -6,9 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.rainy.blog.entity.Tag;
 import org.rainy.blog.param.TagParam;
 import org.rainy.blog.repository.TagRepository;
+import org.rainy.common.constant.CommonStatus;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanExistException;
 import org.rainy.common.util.BeanValidator;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,4 +60,8 @@ public class TagService {
         tagRepository.deleteById(id);
     }
 
+    public Long count() {
+        Specification<Tag> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Tag.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        return tagRepository.count(specification);
+    }
 }

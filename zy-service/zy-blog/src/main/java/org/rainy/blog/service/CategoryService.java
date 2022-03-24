@@ -7,11 +7,13 @@ import org.rainy.blog.entity.Category;
 import org.rainy.blog.repository.CategoryRepository;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
+import org.rainy.common.constant.CommonStatus;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.util.BeanValidator;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -22,8 +24,7 @@ public class CategoryService {
     private final ArticleService articleService;
 
     // 处理循环依赖
-    @Lazy
-    public CategoryService(CategoryRepository categoryRepository, ArticleService articleService) {
+    public CategoryService(CategoryRepository categoryRepository, @Lazy ArticleService articleService) {
         this.categoryRepository = categoryRepository;
         this.articleService = articleService;
     }
@@ -46,4 +47,8 @@ public class CategoryService {
         return PageResult.of(categoryPage);
     }
 
+    public Long count() {
+        Specification<Category> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Category.COLUMN.STATUS), CommonStatus.VALID);
+        return categoryRepository.count(specification);
+    }
 }

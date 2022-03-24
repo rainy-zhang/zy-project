@@ -1,8 +1,8 @@
 package org.rainy.blog.controller;
 
-import org.rainy.blog.dto.ArchiveDto;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
+import org.rainy.blog.entity.ArticleWithBlobs;
 import org.rainy.blog.param.ArticleParam;
 import org.rainy.blog.service.ArticleService;
 import org.rainy.common.beans.PageResult;
@@ -27,13 +27,8 @@ public class ArticleController {
     }
 
     @GetMapping(value = "/{id}")
-    public Article findById(@PathVariable("id") Integer id) {
-        return articleService.findById(id);
-    }
-
-    @GetMapping(value = "/archives")
-    public List<ArchiveDto> archives() {
-        return Collections.emptyList();
+    public ArticleWithBlobs findById(@PathVariable("id") Integer id) {
+        return articleService.findBlobsById(id);
     }
 
     @GetMapping(value = "/tops")

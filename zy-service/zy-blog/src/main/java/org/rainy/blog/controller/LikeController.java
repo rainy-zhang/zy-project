@@ -1,6 +1,7 @@
 package org.rainy.blog.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.rainy.blog.param.LikeParam;
 import org.rainy.blog.service.LikeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,9 @@ public class LikeController {
         this.likeService = likeService;
     }
 
-    @PostMapping(value = "/{articleId}")
-    public void like(@PathVariable("articleId") Integer articleId) {
-        likeService.like(articleId);
+    @PostMapping
+    public void like(@RequestBody LikeParam likeParam) {
+        likeService.like(likeParam);
     }
 
     @DeleteMapping(value = "/{id}")

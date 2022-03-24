@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Statistics {
+public class StatisticsDto {
 
     private Long articleCount;
 
     private Long followCount;
+    
+    private Long tagCount;
+    
+    private Long categoryCount;
 
 }
