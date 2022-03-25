@@ -14,7 +14,6 @@ public class CommonUtils {
         if (duration.isNegative()) {
             throw new IllegalArgumentException("conditionTime > currentTime");
         }
-        String unit;
         long days = duration.toDays();
         long hours = duration.toHours();
         long minutes = duration.toMinutes();
@@ -22,11 +21,11 @@ public class CommonUtils {
         if (days > 0) {
             return String.format("%d day ago", days);
         } else if (hours > 0) {
-            return String.format("%d hour ago", days);
+            return String.format("%d hour ago", hours);
         } else if (minutes > 0) {
-            return String.format("%d min ago", days);
+            return String.format("%d min ago", minutes);
         } else if (seconds > 0) {
-            return String.format("%d second ago", days);
+            return String.format("%d second ago", seconds);
         } else {
             return "just now";
         }
