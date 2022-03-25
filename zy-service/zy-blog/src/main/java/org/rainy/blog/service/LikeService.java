@@ -29,7 +29,7 @@ public class LikeService {
         BeanValidator.validate(likeParam, ValidateGroups.INSERT.class);
         Like like = likeParam.convert();
         likeRepository.save(like);
-        articleService.increaseLike(like.getArticleId());
+        articleService.increaseLikes(like.getArticleId());
         log.info("点赞成功，articleId：{}, like：{}", like.getArticleId(), like);
     }
 
@@ -38,7 +38,7 @@ public class LikeService {
         Preconditions.checkNotNull(id, "ID不能为空");
         Like like = likeRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("点赞记录不存在"));
         likeRepository.deleteById(id);
-        articleService.subtractLike(like.getArticleId());
+        articleService.subtractLikes(like.getArticleId());
         log.info("取消点赞成功，articleId：{}，like：{}", like.getArticleId(), like);
     }
 

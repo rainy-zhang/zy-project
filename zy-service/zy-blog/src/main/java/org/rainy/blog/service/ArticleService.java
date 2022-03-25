@@ -1,6 +1,7 @@
 package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
@@ -16,16 +17,21 @@ import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.util.BeanValidator;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
 public class ArticleService {
 
+    public static Set<Integer> calculateArticleIds = Sets.newHashSet();
     private final ArticleRepository articleRepository;
     private final ArticleWithBlogRepository articleWithBlogRepository;
     private final ArticleTagService articleTagService;
@@ -57,9 +63,8 @@ public class ArticleService {
             return new ArticleDto.Builder()
                     .article(article)
                     .category(categoryService.findById(article.getCategoryId()))
-                    .tags(tagService.findByIds(tagIds))
-                    .comments(commentPageResult.getData())
-                    .commentCount(commentService.countByArticleId(articleId))
+                    .tagList(tagService.findByIds(tagIds))
+                    .commentList(commentPageResult.getData())
                     .build();
         });
         return PageResult.of(articlePage);
@@ -86,13 +91,16 @@ public class ArticleService {
     }
 
     /**
-     * 
-     * @param id
-     * @return
+     * 根据id查询文章内容
+     *
+     * @param id 文章ID
+     * @return {@link ArticleWithBlobs}
      */
-    public ArticleWithBlobs findBlobsById(Integer id) {
+    public ArticleWithBlobs details(Integer id) {
         Preconditions.checkNotNull(id, "文章id不能为空");
-        return articleWithBlogRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("文章不存在"));
+        ArticleWithBlobs article = articleWithBlogRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("文章不存在"));
+        increaseReads(id);
+        return article;
     }
 
     public Article findById(Integer id) {
@@ -106,6 +114,12 @@ public class ArticleService {
         log.info("删除文章成功，articleId：{}", id);
     }
 
+    public List<Article> heats() {
+        // 获取热度最高的5篇文章
+        PageRequest pageRequest = PageRequest.of(1, 5, Sort.by(Sort.Order.desc(Article.COLUMN.HEAD)));
+        return articleRepository.findAll(pageRequest).getContent();
+    }
+
     public long countByCategoryId(Integer categoryId) {
         Preconditions.checkNotNull(categoryId, "分类id不能为空");
         Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.CATEGORY_ID), categoryId);
@@ -115,9 +129,9 @@ public class ArticleService {
     /**
      * 减少文章点赞数量
      *
-     * @param id
+     * @param id 文章ID
      */
-    public void subtractLike(Integer id) {
+    public void subtractLikes(Integer id) {
         Article article = findById(id);
         article.setLikes(article.getLikes() - 1);
         articleRepository.save(article);
@@ -126,9 +140,9 @@ public class ArticleService {
     /**
      * 增加文章点赞数量
      *
-     * @param id
+     * @param id 文章ID
      */
-    public void increaseLike(Integer id) {
+    public void increaseLikes(Integer id) {
         Article article = findById(id);
         article.setLikes(article.getLikes() + 1);
         articleRepository.save(article);
@@ -137,11 +151,22 @@ public class ArticleService {
     /**
      * 增加文章阅读次数
      *
-     * @param id
+     * @param id 文章ID
      */
-    public void increaseReading(Integer id) {
+    public void increaseReads(Integer id) {
         Article article = findById(id);
         article.setReads(article.getReads() + 1);
+        articleRepository.save(article);
+    }
+
+    /**
+     * 增加评论数
+     *
+     * @param id 文章ID
+     */
+    public void increaseComments(Integer id) {
+        Article article = findById(id);
+        article.setComments(article.getComments() + 1);
         articleRepository.save(article);
     }
 
@@ -149,4 +174,40 @@ public class ArticleService {
         Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
         return articleRepository.count(specification);
     }
+
+    // TODO: 定时任务
+    public void calculateScore() {
+        List<Article> articles = articleRepository.findAllById(calculateArticleIds);
+        articles.forEach(article -> {
+            CalculateHopArticle calculateHopArticle = new CalculateHopArticle(article);
+            BigDecimal heat = calculateHopArticle.calculateScore();
+            article.setHeat(heat);
+        });
+        articleRepository.saveAll(articles);
+        calculateArticleIds.clear();
+    }
+
+    private static class CalculateHopArticle {
+
+        public static final BigDecimal COMMENT_WEIGHTS = new BigDecimal("0.5");
+        public static final BigDecimal LIKES_WEIGHTS = new BigDecimal("0.3");
+        public static final BigDecimal READS_WEIGHTS = new BigDecimal("0.2");
+
+        private final BigDecimal comments;
+        private final BigDecimal likes;
+        private final BigDecimal reads;
+
+        public CalculateHopArticle(Article article) {
+            this.comments = new BigDecimal(article.getComments());
+            this.likes = new BigDecimal(article.getLikes());
+            this.reads = new BigDecimal(article.getReads());
+        }
+
+        public BigDecimal calculateScore() {
+            return COMMENT_WEIGHTS.multiply(this.comments).add(LIKES_WEIGHTS.multiply(this.likes)).add(READS_WEIGHTS.multiply(this.reads));
+        }
+
+    }
+
+
 }

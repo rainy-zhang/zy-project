@@ -9,6 +9,7 @@ import org.rainy.blog.repository.CommentRepository;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
 import org.rainy.common.util.BeanValidator;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +21,11 @@ import org.springframework.stereotype.Service;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final ArticleService articleService;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, @Lazy ArticleService articleService) {
         this.commentRepository = commentRepository;
+        this.articleService = articleService;
     }
 
     public PageResult<Comment> pageResult(PageQuery pageQuery, Integer articleId) {
@@ -43,6 +46,7 @@ public class CommentService {
         BeanValidator.validate(commentParam);
         Comment comment = commentParam.convert();
         commentRepository.save(comment);
+        articleService.increaseComments(comment.getArticleId());
     }
 
 }

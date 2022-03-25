@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  * @author: zhangyu
- * @description:
+ * @description: 封装通用返回值
  * @date: in 2022/3/23 9:04 PM
  */
 @RestControllerAdvice

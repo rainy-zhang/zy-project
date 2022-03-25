@@ -29,11 +29,11 @@ public class ArticleDto {
 
     private Category category;
 
-    private List<Tag> tags;
+    private List<Tag> tagList;
 
-    private List<Comment> comments;
+    private List<Comment> commentList;
 
-    private Long commentCount;
+    private Long comments;
 
     private ArticleDto(Builder builder) {
         this.id = builder.article.getId();
@@ -42,11 +42,11 @@ public class ArticleDto {
         this.userId = builder.article.getUserId();
         this.reads = builder.article.getReads();
         this.likes = builder.article.getLikes();
+        this.comments = builder.article.getComments();
         this.ago = CommonUtils.ago(builder.article.getCreateTime());
         this.category = builder.category;
-        this.tags = builder.tags;
-        this.commentCount = builder.commentCount;
-        this.comments = builder.comments;
+        this.tagList = builder.tagList;
+        this.commentList = builder.commentList;
     }
 
     @Getter
@@ -56,11 +56,9 @@ public class ArticleDto {
 
         private Category category;
 
-        private List<Tag> tags;
+        private List<Tag> tagList;
 
-        private List<Comment> comments;
-
-        private Long commentCount;
+        private List<Comment> commentList;
 
         public ArticleDto build() {
             return new ArticleDto(this);
@@ -76,21 +74,15 @@ public class ArticleDto {
             return this;
         }
 
-        public Builder tags(List<Tag> tags) {
-            this.tags = tags;
+        public Builder tagList(List<Tag> tagList) {
+            this.tagList = tagList;
             return this;
         }
 
-        public Builder comments(List<Comment> comments) {
-            this.comments = comments;
+        public Builder commentList(List<Comment> commentList) {
+            this.commentList = commentList;
             return this;
         }
-
-        public Builder commentCount(Long commentCount) {
-            this.commentCount = commentCount;
-            return this;
-        }
-
 
     }
 

@@ -38,7 +38,7 @@ public class ArchiveArticleService {
     public void changeArchiveArticle(Integer archiveId, List<Integer> articleIds) {
         Preconditions.checkNotNull(archiveId, "归档ID不能为空");
         Preconditions.checkNotNull(articleIds, "文章ID列表不能为空");
-
+        
         List<Integer> originArticleIds = archiveArticleRepository.findArticleIdsByArchiveId(archiveId);
         if (CollectionUtils.isEqualCollection(originArticleIds, articleIds)) {
             return;

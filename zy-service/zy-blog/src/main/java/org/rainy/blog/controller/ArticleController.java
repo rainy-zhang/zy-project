@@ -26,14 +26,14 @@ public class ArticleController {
         return articleService.articlePage(articleParam);
     }
 
-    @GetMapping(value = "/{id}")
-    public ArticleWithBlobs findById(@PathVariable("id") Integer id) {
-        return articleService.findBlobsById(id);
+    @GetMapping(value = "/details/{id}")
+    public ArticleWithBlobs details(@PathVariable("id") Integer id) {
+        return articleService.details(id);
     }
 
-    @GetMapping(value = "/tops")
-    public List<Article> tops() {
-        return Collections.emptyList();
+    @GetMapping(value = "/heats")
+    public List<Article> heats() {
+        return articleService.heats();
     }
 
     @PostMapping(value = "/save")

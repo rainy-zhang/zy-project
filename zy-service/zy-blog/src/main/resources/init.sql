@@ -9,6 +9,7 @@ create table `zy-blog`.t_article
     user_id int not null comment '发布人id',
     `reads` bigint not null DEFAULT 0 comment '阅读量',
     likes bigint not null DEFAULT 0 comment '点赞数',
+    comments bigint not null DEFAULT 0 comment '评论数',
     seq int not null DEFAULT 0 comment '排序号',
     status int not null DEFAULT 1 comment '博客状态',
     create_time datetime not null DEFAULT CURRENT_TIMESTAMP comment '创建时间',
