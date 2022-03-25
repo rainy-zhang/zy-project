@@ -20,17 +20,16 @@ public class CommonUtils {
         long minutes = duration.toMinutes();
         long seconds = duration.toSeconds();
         if (days > 0) {
-            unit = "天";
+            return String.format("%d day ago", days);
         } else if (hours > 0) {
-            unit = "小时";
+            return String.format("%d hour ago", days);
         } else if (minutes > 0) {
-            unit = "分钟";
+            return String.format("%d min ago", days);
         } else if (seconds > 0) {
-            unit = "秒";
+            return String.format("%d second ago", days);
         } else {
-            return "刚刚";
+            return "just now";
         }
-        return String.format("%d%s前", days, unit);
     }
 
 }

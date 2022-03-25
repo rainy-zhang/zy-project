@@ -11,6 +11,7 @@ create table `zy-blog`.t_article
     likes bigint not null DEFAULT 0 comment '点赞数',
     comments bigint not null DEFAULT 0 comment '评论数',
     seq int not null DEFAULT 0 comment '排序号',
+    heat double not null DEFAULT 0 comment '热度',
     status int not null DEFAULT 1 comment '博客状态',
     create_time datetime not null DEFAULT CURRENT_TIMESTAMP comment '创建时间',
     category_id int not null comment '分类id',

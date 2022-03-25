@@ -75,7 +75,7 @@ public class Article {
     public static class COLUMN {
         public static final String STATUS = "status";
         public static final String CATEGORY_ID = "categoryId";
-        public static final String HEAD = "head";
+        public static final String HEAD = "heat";
         
     }
 

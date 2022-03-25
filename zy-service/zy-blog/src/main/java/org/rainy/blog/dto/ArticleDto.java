@@ -29,9 +29,7 @@ public class ArticleDto {
 
     private Category category;
 
-    private List<Tag> tagList;
-
-    private List<Comment> commentList;
+    private List<Tag> tags;
 
     private Long comments;
 
@@ -45,8 +43,7 @@ public class ArticleDto {
         this.comments = builder.article.getComments();
         this.ago = CommonUtils.ago(builder.article.getCreateTime());
         this.category = builder.category;
-        this.tagList = builder.tagList;
-        this.commentList = builder.commentList;
+        this.tags = builder.tags;
     }
 
     @Getter
@@ -56,9 +53,7 @@ public class ArticleDto {
 
         private Category category;
 
-        private List<Tag> tagList;
-
-        private List<Comment> commentList;
+        private List<Tag> tags;
 
         public ArticleDto build() {
             return new ArticleDto(this);
@@ -74,13 +69,8 @@ public class ArticleDto {
             return this;
         }
 
-        public Builder tagList(List<Tag> tagList) {
-            this.tagList = tagList;
-            return this;
-        }
-
-        public Builder commentList(List<Comment> commentList) {
-            this.commentList = commentList;
+        public Builder tags(List<Tag> tags) {
+            this.tags = tags;
             return this;
         }
 

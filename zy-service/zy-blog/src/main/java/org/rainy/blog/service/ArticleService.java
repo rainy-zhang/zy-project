@@ -37,15 +37,13 @@ public class ArticleService {
     private final ArticleTagService articleTagService;
     private final CategoryService categoryService;
     private final TagService tagService;
-    private final CommentService commentService;
 
-    public ArticleService(ArticleRepository articleRepository, ArticleWithBlogRepository articleWithBlogRepository, ArticleTagService articleTagService, CategoryService categoryService, TagService tagService, CommentService commentService) {
+    public ArticleService(ArticleRepository articleRepository, ArticleWithBlogRepository articleWithBlogRepository, ArticleTagService articleTagService, CategoryService categoryService, TagService tagService) {
         this.articleRepository = articleRepository;
         this.articleWithBlogRepository = articleWithBlogRepository;
         this.articleTagService = articleTagService;
         this.categoryService = categoryService;
         this.tagService = tagService;
-        this.commentService = commentService;
     }
 
     public PageResult<ArticleDto> articlePage(ArticleParam articleParam) {
@@ -53,18 +51,15 @@ public class ArticleService {
         Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
 
         PageQuery articlePageQuery = articleParam.getArticlePageQuery();
-        PageQuery commentPageQuery = articleParam.getCommentPageQuery();
         Page<Article> page = articleRepository.findAll(specification, articlePageQuery.convert());
         Page<ArticleDto> articlePage = page.map(article -> {
             Integer articleId = article.getId();
             List<Integer> tagIds = articleTagService.findTagIdsByArticleId(articleId);
             // 获取文章对应的评论列表
-            PageResult<Comment> commentPageResult = commentService.pageResult(commentPageQuery, articleId);
             return new ArticleDto.Builder()
                     .article(article)
                     .category(categoryService.findById(article.getCategoryId()))
-                    .tagList(tagService.findByIds(tagIds))
-                    .commentList(commentPageResult.getData())
+                    .tags(tagService.findByIds(tagIds))
                     .build();
         });
         return PageResult.of(articlePage);
@@ -116,8 +111,9 @@ public class ArticleService {
 
     public List<Article> heats() {
         // 获取热度最高的5篇文章
-        PageRequest pageRequest = PageRequest.of(1, 5, Sort.by(Sort.Order.desc(Article.COLUMN.HEAD)));
-        return articleRepository.findAll(pageRequest).getContent();
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Order.desc(Article.COLUMN.HEAD)));
+        return articleRepository.findAll(specification, pageRequest).getContent();
     }
 
     public long countByCategoryId(Integer categoryId) {
