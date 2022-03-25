@@ -48,7 +48,7 @@ public class CategoryService {
     }
 
     public Long count() {
-        Specification<Category> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Category.COLUMN.STATUS), CommonStatus.VALID);
+        Specification<Category> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Category.COLUMN.STATUS), CommonStatus.VALID.getCode());
         return categoryRepository.count(specification);
     }
 }

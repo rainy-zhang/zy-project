@@ -17,9 +17,9 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping(value = "/name")
-    public List<Tag> tags(@PathVariable("name") String name) {
-        return tagService.tags(name);
+    @GetMapping(value = "/tags")
+    public List<Tag> tags() {
+        return tagService.tags();
     }
 
     @PostMapping(value = "/save")

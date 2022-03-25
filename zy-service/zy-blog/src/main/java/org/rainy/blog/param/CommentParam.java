@@ -13,8 +13,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CommentParam {
     
-    private Integer creator;
-    
     @NotBlank(message = "评论内容不能为空", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     @Length(min = 1, max = 200, message = "评论内容长度在1-200个字符之间", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private String content;

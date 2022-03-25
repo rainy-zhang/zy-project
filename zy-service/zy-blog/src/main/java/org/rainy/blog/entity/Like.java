@@ -30,9 +30,6 @@ public class Like {
     @Column(name = "article_id")
     private Integer articleId;
 
-    @Column(name = "creator")
-    private Integer creator;
-    
     @Operator
     @Column(name = "operator")
     private Integer operator;
@@ -45,7 +42,4 @@ public class Like {
     @Column(name = "operate_ip")
     private String operateIp;
 
-    public Like(Integer articleId) {
-        this.articleId = articleId;
-    }
 }

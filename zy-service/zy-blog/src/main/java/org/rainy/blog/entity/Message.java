@@ -25,9 +25,6 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "creator")
-    private Integer creator;
-
     @Column(name = "content")
     private String content;
 

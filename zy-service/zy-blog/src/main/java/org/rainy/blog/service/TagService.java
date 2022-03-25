@@ -2,7 +2,6 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.rainy.blog.entity.Tag;
 import org.rainy.blog.param.TagParam;
 import org.rainy.blog.repository.TagRepository;
@@ -25,11 +24,8 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    public List<Tag> tags(String name) {
-        if (StringUtils.isNotEmpty(name)) {
-            return tagRepository.findAll();
-        }
-        return tagRepository.findByNameContaining(name);
+    public List<Tag> tags() {
+        return tagRepository.findAll();
     }
 
     public List<Tag> findByIds(List<Integer> ids) {

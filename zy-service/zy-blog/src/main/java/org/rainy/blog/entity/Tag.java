@@ -28,11 +28,14 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "remark")
-    private String remark;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "seq")
     private Integer seq;
+
+    @Column(name = "status")
+    private Integer status;
 
     @Operator
     @Column(name = "operator")

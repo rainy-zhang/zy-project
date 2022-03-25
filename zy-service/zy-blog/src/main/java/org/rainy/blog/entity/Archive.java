@@ -34,6 +34,9 @@ public class Archive {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "seq")
+    private Integer seq;
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

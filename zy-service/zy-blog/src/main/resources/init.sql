@@ -10,7 +10,7 @@ create table `zy-blog`.t_article
     `reads` bigint not null DEFAULT 0 comment '阅读量',
     likes bigint not null DEFAULT 0 comment '点赞数',
     seq int not null DEFAULT 0 comment '排序号',
-    status int not null DEFAULT 2 comment '博客状态，-1：删除、1：草稿、1：正常、2：隐藏',
+    status int not null DEFAULT 1 comment '博客状态',
     create_time datetime not null DEFAULT CURRENT_TIMESTAMP comment '创建时间',
     category_id int not null comment '分类id',
     operator int not null DEFAULT -1 comment '操作人',
@@ -27,7 +27,7 @@ create table `zy-blog`.t_article_tag
     tag_id int not null comment '标签ID',
     operator int not null DEFAULT -1 comment '操作人',
     operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
-    operate_ip varchar(20) default '' not null comment '操作人IP地址'
+    operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'
 )
     comment '文章和标签关联表';
 
@@ -37,6 +37,7 @@ create table `zy-blog`.t_comment
         primary key,
     reply_id int not null comment '要回复的评论ID、如果不是回复其他评论则为空',
     article_id int not null comment '文章id',
+    status int not null DEFAULT 1 comment '状态',
     content varchar(200) default '' not null comment '评论内容',
     operator int not null DEFAULT -1 comment '操作人',
     operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
@@ -62,6 +63,7 @@ create table `zy-blog`.t_message
         primary key,
     user_id int not null comment '用户ID',
     content varchar(250) default '' not null comment '留言内容',
+    status int not null DEFAULT 1 comment '状态',
     create_time datetime not null DEFAULT CURRENT_TIMESTAMP comment '创建时间',
     operator int not null DEFAULT -1 comment '操作人',
     operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
@@ -73,7 +75,8 @@ create table `zy-blog`.t_tag
 (
     id int not null primary key,
     name varchar(20) default '' not null comment '标签名称',
-    remark varchar(200) default '' not null comment '备注',
+    description varchar(200) default '' not null comment '描述',
+    status int not null DEFAULT 1 comment '状态',
     seq int not null DEFAULT 0 comment '排序号',
     operator int not null DEFAULT -1 comment '操作人',
     operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
@@ -87,6 +90,7 @@ create table `zy-blog`.t_category
     name varchar(20) default '' not null comment '分类名称',
     description varchar(200) default '' not null comment '描述',
     seq int not null DEFAULT 0 comment '排序号',
+    status int not null DEFAULT 1 comment '状态',
     operator int not null DEFAULT -1 comment '操作人',
     operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
     operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'
@@ -104,7 +108,30 @@ create table `zy-blog`.t_like
 )
     comment '点赞表';
 
+create table `zy-blog`.t_archive_article
+(
+    id int not null
+        primary key,
+    article_id int not null comment '文章ID',
+    archive_id int not null comment '归档ID',
+    operator int not null DEFAULT -1 comment '操作人',
+    operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
+    operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'
+)
+    comment '文章和归档关联表';
 
+create table `zy-blog`.t_archive
+(
+    id int not null primary key,
+    name varchar(20) default '' not null comment '归档名称',
+    description varchar(200) default '' not null comment '描述',
+    status int not null DEFAULT 1 comment '状态',
+    seq int not null DEFAULT 0 comment '排序号',
+    operator int not null DEFAULT -1 comment '操作人',
+    operate_time datetime not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '操作时间',
+    operate_ip varchar(20) default '0.0.0.0' not null comment '操作人IP地址'
+)
+    comment '归档表';
 
 
 
