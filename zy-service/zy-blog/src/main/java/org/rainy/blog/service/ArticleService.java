@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.entity.ArticleWithBlobs;
-import org.rainy.blog.entity.Comment;
 import org.rainy.blog.param.ArticleParam;
 import org.rainy.blog.repository.ArticleRepository;
 import org.rainy.blog.repository.ArticleWithBlogRepository;
@@ -109,8 +108,12 @@ public class ArticleService {
         log.info("删除文章成功，articleId：{}", id);
     }
 
-    public List<Article> heats() {
-        // 获取热度最高的5篇文章
+    /**
+     * 热度最高的5篇文章
+     *
+     * @return {@link List<Article>}
+     */
+    public List<Article> hots() {
         Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Order.desc(Article.COLUMN.HEAD)));
         return articleRepository.findAll(specification, pageRequest).getContent();
@@ -176,7 +179,7 @@ public class ArticleService {
         List<Article> articles = articleRepository.findAllById(calculateArticleIds);
         articles.forEach(article -> {
             CalculateHopArticle calculateHopArticle = new CalculateHopArticle(article);
-            BigDecimal heat = calculateHopArticle.calculateScore();
+            BigDecimal heat = calculateHopArticle.calculateHeat();
             article.setHeat(heat);
         });
         articleRepository.saveAll(articles);
@@ -199,7 +202,12 @@ public class ArticleService {
             this.reads = new BigDecimal(article.getReads());
         }
 
-        public BigDecimal calculateScore() {
+        /**
+         * 热度计算规则：(评论数 * 0.5) + (点赞数 * 0.3) + (阅读量 * 0.2)
+         *
+         * @return 热度分值
+         */
+        public BigDecimal calculateHeat() {
             return COMMENT_WEIGHTS.multiply(this.comments).add(LIKES_WEIGHTS.multiply(this.likes)).add(READS_WEIGHTS.multiply(this.reads));
         }
 

@@ -3,12 +3,11 @@ package org.rainy.blog.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.rainy.blog.dto.ArchiveDto;
 import org.rainy.blog.service.ArchiveService;
-import org.rainy.common.beans.PageQuery;
-import org.rainy.common.beans.PageResult;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,8 +21,8 @@ public class ArchiveController {
     }
 
     @PostMapping(value = "/archives")
-    public PageResult<ArchiveDto> archives(@RequestBody PageQuery pageQuery) {
-        return archiveService.archivePage(pageQuery);
+    public List<ArchiveDto> archives() {
+        return archiveService.archives();
     }
 
 }

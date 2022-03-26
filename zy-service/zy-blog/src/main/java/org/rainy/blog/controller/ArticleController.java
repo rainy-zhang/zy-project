@@ -31,9 +31,9 @@ public class ArticleController {
         return articleService.details(id);
     }
 
-    @GetMapping(value = "/heats")
-    public List<Article> heats() {
-        return articleService.heats();
+    @GetMapping(value = "/hots")
+    public List<Article> hots() {
+        return articleService.hots();
     }
 
     @PostMapping(value = "/save")
