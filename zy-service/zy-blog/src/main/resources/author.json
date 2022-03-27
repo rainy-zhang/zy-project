@@ -1,5 +1,12 @@
 {
   "name": "Rainy Zhang",
   "description": "Developer",
-  "email": "rainy_zhang@foxmail.com"
+  "email": "rainy_zhang@foxmail.com",
+  "city": "HeFei",
+  "wechat": "15650870406",
+  "github": "",
+  "experience": [],
+  "status": "single",
+  "dream": "more money",
+  "skills": ["Java", "MySQL", "Redis", "Kafka"]
 }

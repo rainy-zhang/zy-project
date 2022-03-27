@@ -36,8 +36,8 @@ public class Article {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "reads")
-    private Long reads;
+    @Column(name = "reading")
+    private Long reading;
 
     @Column(name = "status")
     private Integer status;

@@ -1,6 +1,5 @@
 package org.rainy.blog.param;
 
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.rainy.blog.entity.ArticleWithBlobs;
@@ -38,6 +37,8 @@ public class ArticleParam {
 
     @NotNull(message = "文章分页参数不能为空", groups = {ValidateGroups.SELECT.class})
     private PageQuery articlePageQuery;
+
+    private Integer status;
 
     public ArticleWithBlobs convert() {
         ArticleWithBlobs article = new ArticleWithBlobs();

@@ -1,5 +1,6 @@
 package org.rainy.blog.controller;
 
+import org.rainy.blog.constant.ArticleStatus;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.entity.ArticleWithBlobs;
@@ -21,8 +22,14 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
+    @PostMapping(value = "/articles/all")
+    public PageResult<ArticleDto> allArticlePage(@RequestBody ArticleParam articleParam) {
+        return articleService.articlePage(articleParam);
+    }
+
     @PostMapping(value = "/articles")
     public PageResult<ArticleDto> articlePage(@RequestBody ArticleParam articleParam) {
+        articleParam.setStatus(ArticleStatus.NORMAL.getCode());
         return articleService.articlePage(articleParam);
     }
 

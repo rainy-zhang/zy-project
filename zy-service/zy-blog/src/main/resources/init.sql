@@ -7,7 +7,7 @@ create table `zy-blog`.t_article
     content mediumtext not null comment '文章内容',
     html_content mediumtext not null comment 'html格式的文章内容',
     user_id int not null comment '发布人id',
-    `reads` bigint not null DEFAULT 0 comment '阅读量',
+    reading bigint not null DEFAULT 0 comment '阅读量',
     likes bigint not null DEFAULT 0 comment '点赞数',
     comments bigint not null DEFAULT 0 comment '评论数',
     seq int not null DEFAULT 0 comment '排序号',

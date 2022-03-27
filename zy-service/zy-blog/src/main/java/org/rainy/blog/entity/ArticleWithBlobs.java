@@ -37,11 +37,17 @@ public class ArticleWithBlobs {
     @Column(name = "summary")
     private String summary;
 
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "html_content")
+    private String htmlContent;
+
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "reads")
-    private Long reads;
+    @Column(name = "reading")
+    private Long reading;
 
     @Column(name = "status")
     private Integer status;

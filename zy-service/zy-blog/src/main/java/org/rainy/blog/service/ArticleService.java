@@ -1,8 +1,10 @@
 package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.rainy.blog.constant.ArticleStatus;
 import org.rainy.blog.dto.ArticleDto;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.entity.ArticleWithBlobs;
@@ -22,8 +24,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
@@ -47,7 +51,14 @@ public class ArticleService {
 
     public PageResult<ArticleDto> articlePage(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.SELECT.class);
-        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        Specification<Article> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = Lists.newArrayList();
+            if (Objects.nonNull(articleParam.getStatus())) {
+                Predicate predicate = criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), ArticleStatus.NORMAL.getCode());
+                predicates.add(predicate);
+            }
+            return query.where(predicates.toArray(Predicate[]::new)).getRestriction();
+        };
 
         PageQuery articlePageQuery = articleParam.getArticlePageQuery();
         Page<Article> page = articleRepository.findAll(specification, articlePageQuery.convert());
@@ -59,6 +70,7 @@ public class ArticleService {
                     .article(article)
                     .category(categoryService.findById(article.getCategoryId()))
                     .tags(tagService.findByIds(tagIds))
+                    .status(article.getStatus())
                     .build();
         });
         return PageResult.of(articlePage);
@@ -114,7 +126,7 @@ public class ArticleService {
      * @return {@link List<Article>}
      */
     public List<Article> hots() {
-        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), ArticleStatus.NORMAL.getCode());
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Order.desc(Article.COLUMN.HEAD)));
         return articleRepository.findAll(specification, pageRequest).getContent();
     }
@@ -154,7 +166,7 @@ public class ArticleService {
      */
     public void increaseReads(Integer id) {
         Article article = findById(id);
-        article.setReads(article.getReads() + 1);
+        article.setReading(article.getReading() + 1);
         articleRepository.save(article);
     }
 
@@ -170,7 +182,7 @@ public class ArticleService {
     }
 
     public Long count() {
-        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), CommonStatus.VALID.getCode());
+        Specification<Article> specification = (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Article.COLUMN.STATUS), ArticleStatus.NORMAL.getCode());
         return articleRepository.count(specification);
     }
 
@@ -199,7 +211,7 @@ public class ArticleService {
         public CalculateHopArticle(Article article) {
             this.comments = new BigDecimal(article.getComments());
             this.likes = new BigDecimal(article.getLikes());
-            this.reads = new BigDecimal(article.getReads());
+            this.reads = new BigDecimal(article.getReading());
         }
 
         /**

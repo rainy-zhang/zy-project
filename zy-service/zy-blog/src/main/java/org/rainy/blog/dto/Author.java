@@ -10,7 +10,9 @@ public class Author {
     private String name;
     
     private String description;
-    
+
+    private String city;
+
     private String email;
     
     private String wechat;
@@ -22,9 +24,9 @@ public class Author {
      */
     private List<String> experiences;
     
-    private String currentStatus;
+    private String status;
     
-    private String target;
+    private String dream;
 
     /**
      * 技能
