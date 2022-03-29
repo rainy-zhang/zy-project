@@ -1,5 +1,6 @@
 package org.rainy.permission.service;
 
+import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
@@ -11,16 +12,22 @@ import org.rainy.common.util.BeanValidator;
 import org.rainy.common.util.PasswordUtils;
 import org.rainy.permission.constant.LogOpType;
 import org.rainy.permission.constant.LogType;
+import org.rainy.permission.dto.AclModuleDto;
 import org.rainy.permission.dto.UserDto;
+import org.rainy.permission.entity.Acl;
 import org.rainy.permission.entity.User;
 import org.rainy.permission.param.UserParam;
 import org.rainy.permission.param.VisitorParam;
+import org.rainy.permission.repository.RoleUserRepository;
 import org.rainy.permission.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,10 +37,16 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final LogService logService;
+    private final TreeService treeService;
+    private final RoleService roleService;
+    private final RoleUserRepository roleUserRepository;
 
-    public UserService(UserRepository userRepository, LogService logService) {
+    public UserService(UserRepository userRepository, LogService logService, TreeService treeService, RoleService roleService, RoleUserRepository roleUserRepository) {
         this.userRepository = userRepository;
         this.logService = logService;
+        this.treeService = treeService;
+        this.roleService = roleService;
+        this.roleUserRepository = roleUserRepository;
     }
 
     public PageResult<UserDto> userPage(PageQuery pageQuery) {
@@ -41,6 +54,20 @@ public class UserService {
         Page<User> page = userRepository.findAll(pageQuery.convert());
         Page<UserDto> userPage = page.map(UserDto::convert);
         return PageResult.of(userPage);
+    }
+    
+    public List<Acl> aclsById(Integer id) {
+        Preconditions.checkNotNull(id, "用户ID不能为空");
+        List<Integer> roleIds = roleUserRepository.findRoleIdsByUserId(id);
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return Collections.emptyList();
+        }
+        return roleService.findAclsByIds(roleIds);
+    }
+    
+    public List<AclModuleDto> userAclTree(Integer id) {
+        Preconditions.checkNotNull(id, "用户ID不能为空");
+        return treeService.userAclTree(id);
     }
 
     public Optional<User> findByKeyword(String username) {

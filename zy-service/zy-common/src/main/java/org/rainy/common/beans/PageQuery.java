@@ -1,6 +1,5 @@
 package org.rainy.common.beans;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.rainy.common.constant.ValidateGroups;

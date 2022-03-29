@@ -2,13 +2,16 @@ package org.rainy.permission.controller;
 
 import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
+import org.rainy.permission.dto.AclModuleDto;
 import org.rainy.permission.dto.UserDto;
+import org.rainy.permission.entity.Acl;
 import org.rainy.permission.param.UserParam;
 import org.rainy.permission.param.VisitorParam;
 import org.rainy.permission.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -31,6 +34,16 @@ public class UserController {
     }
 
     /**
+     * 根据用户ID获取权限列表
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/acls/{id}")
+    public List<Acl> acls(@PathVariable("id") Integer id) {
+        return userService.aclsById(id);
+    }
+    
+    /**
      * 保存游客信息
      *
      * @param visitorParam
@@ -39,6 +52,16 @@ public class UserController {
     @PostMapping(value = "/visitor/register")
     public UserDto saveVisitor(@RequestBody VisitorParam visitorParam) throws IOException {
         return userService.saveVisitor(visitorParam);
+    }
+
+    /**
+     * 根据用户ID获取权限树
+     * @param id
+     * @return
+     */
+    @GetMapping(value = "/aclTree/{id}")
+    private List<AclModuleDto> aclTree(@PathVariable("id") Integer id) {
+        return userService.userAclTree(id);
     }
 
     /**
@@ -52,6 +75,7 @@ public class UserController {
         return userService.findById(id);
     }
 
+    
     /**
      * 查询用户分页信息
      *

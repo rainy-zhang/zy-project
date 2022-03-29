@@ -1,12 +1,12 @@
 package org.rainy.blog.client;
 
-import org.rainy.blog.dto.UserDto;
+import org.rainy.blog.client.dto.User;
 
 // TODO: RPC调用permission服务获取用户信息
 public interface UserClient {
 
-    UserDto createVisitor(UserDto userDto);
+    User createVisitor(User user);
 
-    UserDto queryById(Integer userId);
+    User queryById(Integer userId);
 
 }

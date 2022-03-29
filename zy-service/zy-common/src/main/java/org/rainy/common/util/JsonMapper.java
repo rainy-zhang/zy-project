@@ -19,6 +19,7 @@ public class JsonMapper {
 
     private static final String DATE_TIME_FORMATTER = "yyyy-MM-dd HH:mm:ss";
     private static final ObjectMapper objectMapper;
+
     static {
         objectMapper = new Jackson2ObjectMapperBuilder()
                 .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER)))

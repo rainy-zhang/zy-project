@@ -18,6 +18,7 @@ public class AuditFieldListener {
 
     /**
      * 插入数据前执行
+     *
      * @param entity
      * @throws IllegalAccessException
      */
@@ -35,6 +36,7 @@ public class AuditFieldListener {
 
     /**
      * 更新数据前执行
+     *
      * @param entity
      * @throws IllegalAccessException
      */

@@ -1,7 +1,5 @@
 package org.rainy.common.util;
 
-import org.springframework.util.Base64Utils;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,12 +15,12 @@ public class AvatarHelper {
     public static final String IMAGE_ROOT_URL = "D:/";
     public static final String IMAGE_SUFFIX = "png";
 
-    
+
     public static String createAvatar(String username) throws IOException {
         String avatarBase64 = createBase64Avatar(username);
         return base64ToImage(avatarBase64, username);
     }
-    
+
     /**
      * 生成头像的base64编码
      *
@@ -40,7 +38,7 @@ public class AvatarHelper {
      * @param base64
      */
     public static String base64ToImage(String base64, String imageName) {
-        
+
         File imageFile = new File(String.format("%s/%s.%s", IMAGE_ROOT_URL, imageName, IMAGE_SUFFIX));
         try (OutputStream out = new BufferedOutputStream(new FileOutputStream(imageFile))) {
             byte[] decode = Base64.getDecoder().decode(base64.getBytes());

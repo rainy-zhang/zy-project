@@ -1,5 +1,6 @@
 package org.rainy.permission.service;
 
+import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rainy.common.constant.ValidateGroups;
@@ -8,8 +9,11 @@ import org.rainy.common.exception.IllegalParamException;
 import org.rainy.common.util.BeanValidator;
 import org.rainy.permission.constant.LogOpType;
 import org.rainy.permission.constant.LogType;
+import org.rainy.permission.entity.Acl;
 import org.rainy.permission.entity.Role;
 import org.rainy.permission.param.RoleParam;
+import org.rainy.permission.repository.AclRepository;
+import org.rainy.permission.repository.RoleAclRepository;
 import org.rainy.permission.repository.RoleRepository;
 import org.rainy.permission.repository.RoleUserRepository;
 import org.springframework.stereotype.Service;
@@ -26,11 +30,15 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private final RoleUserRepository roleUserRepository;
     private final LogService logService;
+    private final RoleAclRepository roleAclRepository;
+    private final AclRepository aclRepository;
 
-    public RoleService(RoleRepository roleRepository, RoleUserRepository roleUserRepository, LogService logService) {
+    public RoleService(RoleRepository roleRepository, RoleUserRepository roleUserRepository, LogService logService, RoleAclRepository roleAclRepository, AclRepository aclRepository) {
         this.roleRepository = roleRepository;
         this.roleUserRepository = roleUserRepository;
         this.logService = logService;
+        this.roleAclRepository = roleAclRepository;
+        this.aclRepository = aclRepository;
     }
 
     public List<Role> findRoleListByUserId(Integer userId) {
@@ -41,12 +49,13 @@ public class RoleService {
         return roleRepository.findAllById(roleIds);
     }
 
-    public List<Role> findAll() {
-        return roleRepository.findAll();
-    }
-
-    public List<Role> findByIds(List<Integer> ids) {
-        return roleRepository.findAllById(ids);
+    public List<Acl> findAclsByIds(List<Integer> ids) {
+        Preconditions.checkNotNull(ids, "角色ID列表不能为空");
+        List<Integer> aclIds = roleAclRepository.findAclIdsByRoleIds(ids);
+        if (CollectionUtils.isEmpty(aclIds)) {
+            return Collections.emptyList();
+        }
+        return aclRepository.findAllById(aclIds);
     }
 
     @Transactional(rollbackFor = Exception.class)

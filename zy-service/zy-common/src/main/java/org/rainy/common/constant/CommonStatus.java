@@ -19,6 +19,7 @@ public enum CommonStatus {
     private final String desc;
 
     public static final Map<Integer, CommonStatus> statusMap;
+
     static {
         statusMap = Stream.of(CommonStatus.values()).collect(Collectors.toMap(CommonStatus::getCode, Function.identity()));
     }

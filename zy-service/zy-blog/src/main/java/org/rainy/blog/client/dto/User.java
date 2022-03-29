@@ -1,4 +1,4 @@
-package org.rainy.blog.dto;
+package org.rainy.blog.client.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class User {
 
     private Integer id;
 

@@ -2,9 +2,7 @@ package org.rainy.blog.controller;
 
 import org.rainy.blog.dto.Author;
 import org.rainy.blog.service.AuthorService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -24,8 +22,13 @@ public class AuthorController {
     }
 
     @GetMapping(value = "/load")
-    public void load() throws IOException {
-        authorService.load();
+    public Author load() throws IOException {
+        return authorService.load();
+    }
+    
+    @PutMapping(value = "/change")
+    public Author change(@RequestBody Author author) throws IOException {
+        return authorService.change(author);
     }
 
 }
