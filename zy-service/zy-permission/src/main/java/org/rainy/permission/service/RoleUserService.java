@@ -3,10 +3,10 @@ package org.rainy.permission.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.rainy.common.constant.CommonStatus;
-import org.rainy.permission.constant.LogOpType;
-import org.rainy.permission.constant.LogType;
 import org.rainy.common.util.BeanValidator;
 import org.rainy.common.util.JsonMapper;
+import org.rainy.permission.constant.LogOpType;
+import org.rainy.permission.constant.LogType;
 import org.rainy.permission.dto.UserDto;
 import org.rainy.permission.entity.Log;
 import org.rainy.permission.entity.RoleUser;
@@ -73,8 +73,6 @@ public class RoleUserService {
                 .build();
         logService.save(log);
     }
-
-
 
 
 }

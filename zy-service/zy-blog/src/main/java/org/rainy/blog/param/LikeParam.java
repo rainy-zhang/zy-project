@@ -1,14 +1,10 @@
 package org.rainy.blog.param;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-import org.rainy.blog.dto.UserDto;
-import org.rainy.blog.entity.Follow;
 import org.rainy.blog.entity.Like;
 import org.rainy.common.constant.ValidateGroups;
 import org.springframework.beans.BeanUtils;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Data

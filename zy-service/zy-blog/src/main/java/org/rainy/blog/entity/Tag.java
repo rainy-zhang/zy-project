@@ -48,7 +48,7 @@ public class Tag {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
     public static class COLUMN {
         public static final String STATUS = "status";
     }

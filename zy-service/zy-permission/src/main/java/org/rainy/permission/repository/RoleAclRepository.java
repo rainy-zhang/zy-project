@@ -13,6 +13,7 @@ public interface RoleAclRepository extends JpaRepository<RoleAcl, Integer> {
 
     /**
      * 根据角色Id查询对应的权限点Id列表
+     *
      * @param roleId
      * @return aclIds
      */

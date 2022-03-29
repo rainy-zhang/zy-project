@@ -22,6 +22,7 @@ public class AclService {
 
     private final AclRepository aclRepository;
     private final LogService logService;
+
     public AclService(AclRepository aclRepository, LogService logService) {
         this.aclRepository = aclRepository;
         this.logService = logService;

@@ -17,6 +17,7 @@ public class AclController {
 
     /**
      * 根据id获取权限点信息
+     *
      * @param id
      * @return
      */
@@ -27,6 +28,7 @@ public class AclController {
 
     /**
      * 新增权限点
+     *
      * @param aclParam
      */
     @PostMapping(value = "/save")
@@ -36,6 +38,7 @@ public class AclController {
 
     /**
      * 修改权限点
+     *
      * @param aclParam
      */
     @PutMapping(value = "/update")
@@ -45,13 +48,13 @@ public class AclController {
 
     /**
      * 删除权限点
+     *
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
     public void delete(@PathVariable(value = "id") Integer id) {
         aclService.delete(id);
     }
-
 
 
 }

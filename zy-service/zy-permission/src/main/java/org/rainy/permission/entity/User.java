@@ -10,7 +10,6 @@ import org.rainy.common.beans.AuditFieldListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +29,18 @@ public class User {
     @Column(name = "nickname")
     private String nickname;
 
+    /**
+     * 头像，保存的是base64
+     */
+    @Column(name = "avatar")
+    private String avatar;
+
+    /**
+     * 个人网站
+     */
+    @Column(name = "website")
+    private String website;
+
     @Column(name = "email")
     private String email;
 
@@ -44,10 +55,10 @@ public class User {
 
     @Column(name = "seq")
     private Integer seq;
-    
+
     @Column(name = "register_time")
     private LocalDateTime registerTime;
-    
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

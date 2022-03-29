@@ -2,7 +2,6 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Like;
 import org.rainy.blog.param.LikeParam;
 import org.rainy.blog.repository.LikeRepository;

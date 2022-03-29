@@ -26,10 +26,10 @@ public class ArchiveArticle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @Column(name = "archive_id")
     private Integer archiveId;
-    
+
     @Column(name = "article_id")
     private Integer articleId;
 

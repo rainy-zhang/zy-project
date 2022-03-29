@@ -24,6 +24,7 @@ public enum LogType {
     private final String desc;
 
     public static final Map<Integer, LogType> types;
+
     static {
         types = Stream.of(LogType.values()).collect(Collectors.toMap(LogType::getCode, Function.identity()));
     }

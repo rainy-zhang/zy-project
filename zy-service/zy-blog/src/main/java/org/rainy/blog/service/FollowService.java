@@ -1,7 +1,6 @@
 package org.rainy.blog.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Follow;
 import org.rainy.blog.param.FollowParam;
 import org.rainy.blog.repository.FollowRepository;

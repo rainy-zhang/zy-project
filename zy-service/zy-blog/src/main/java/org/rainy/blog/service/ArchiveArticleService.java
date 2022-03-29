@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class ArchiveArticleService {
-    
+
     private final ArchiveArticleRepository archiveArticleRepository;
 
     public ArchiveArticleService(ArchiveArticleRepository archiveArticleRepository) {
@@ -22,6 +22,7 @@ public class ArchiveArticleService {
 
     /**
      * 根据归档ID获取对应的文章Id列表
+     *
      * @param archiveId
      * @return
      */
@@ -32,13 +33,14 @@ public class ArchiveArticleService {
 
     /**
      * 更新文章与归档关联关系
+     *
      * @param archiveId
      * @param articleIds
      */
     public void changeArchiveArticle(Integer archiveId, List<Integer> articleIds) {
         Preconditions.checkNotNull(archiveId, "归档ID不能为空");
         Preconditions.checkNotNull(articleIds, "文章ID列表不能为空");
-        
+
         List<Integer> originArticleIds = archiveArticleRepository.findArticleIdsByArchiveId(archiveId);
         if (CollectionUtils.isEqualCollection(originArticleIds, articleIds)) {
             return;
@@ -48,5 +50,5 @@ public class ArchiveArticleService {
         archiveArticleRepository.saveAll(archiveArticles);
         log.info("更新文章与归档关联关系成功，归档ID：{}，文章ID列表：{}", archiveId, articleIds);
     }
-    
+
 }

@@ -22,7 +22,7 @@ public class AuthorController {
     public Author author() throws IOException {
         return authorService.author();
     }
-    
+
     @GetMapping(value = "/load")
     public void load() throws IOException {
         authorService.load();

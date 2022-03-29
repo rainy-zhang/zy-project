@@ -41,7 +41,7 @@ public class Comment {
 
     @Column(name = "status")
     private Integer status;
-    
+
     @Operator
     @Column(name = "operator")
     private Integer operator;

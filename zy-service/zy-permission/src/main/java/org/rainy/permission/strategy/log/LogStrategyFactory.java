@@ -1,7 +1,7 @@
 package org.rainy.permission.strategy.log;
 
-import org.rainy.permission.constant.LogType;
 import org.rainy.common.exception.CommonException;
+import org.rainy.permission.constant.LogType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

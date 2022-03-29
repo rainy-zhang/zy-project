@@ -1,5 +1,8 @@
 1. 解决页面跳转问题
 2. 文章查看和编辑功能
 3. 新增message标签页
-5. article、setting、message、categories、tags、archive只有管理员可见
 4. 文章搜索模块
+5. article、setting、categories、tags、archive只有管理员可见
+6. 判断文章状态，如果是隐藏状态则显示show按钮，如果是正常状态则显示hide按钮
+7. 右上角添加sign in按钮，如果登陆成功则变为logout
+8. 右上角添加message功能

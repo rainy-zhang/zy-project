@@ -20,6 +20,7 @@ public enum LogOpType {
     private final String desc;
 
     public static final Map<Integer, LogOpType> opTypes;
+
     static {
         opTypes = Stream.of(LogOpType.values()).collect(Collectors.toMap(LogOpType::getCode, Function.identity()));
     }

@@ -12,7 +12,6 @@ import org.rainy.common.beans.AuditFieldListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -53,10 +52,10 @@ public class Article {
 
     @Column(name = "comments")
     private Long comments;
-    
+
     @Column(name = "heat")
     private BigDecimal heat;
-    
+
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
@@ -76,7 +75,7 @@ public class Article {
         public static final String STATUS = "status";
         public static final String CATEGORY_ID = "categoryId";
         public static final String HEAD = "heat";
-        
+
     }
 
 }

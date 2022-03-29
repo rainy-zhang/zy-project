@@ -36,7 +36,7 @@ public class AclParam {
     @Min(value = -1, message = "权限顺序号不合法", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private Integer seq;
 
-    @Length(max = 200,message = "备注需要在200个字符以内", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
+    @Length(max = 200, message = "备注需要在200个字符以内", groups = {ValidateGroups.INSERT.class, ValidateGroups.UPDATE.class})
     private String remark;
 
     public Acl convert() {

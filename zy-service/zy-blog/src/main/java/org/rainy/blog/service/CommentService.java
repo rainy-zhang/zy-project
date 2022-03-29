@@ -2,7 +2,6 @@ package org.rainy.blog.service;
 
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
-import org.rainy.blog.dto.UserDto;
 import org.rainy.blog.entity.Comment;
 import org.rainy.blog.param.CommentParam;
 import org.rainy.blog.repository.CommentRepository;
@@ -10,7 +9,6 @@ import org.rainy.common.beans.PageQuery;
 import org.rainy.common.beans.PageResult;
 import org.rainy.common.util.BeanValidator;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

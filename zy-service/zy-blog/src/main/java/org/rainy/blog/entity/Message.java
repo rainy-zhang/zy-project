@@ -30,7 +30,7 @@ public class Message {
 
     @Column(name = "status")
     private Integer status;
-    
+
     @Column(name = "create_time")
     private LocalDateTime createTime;
 

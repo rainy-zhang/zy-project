@@ -5,7 +5,6 @@ import lombok.Getter;
 import org.rainy.blog.constant.ArticleStatus;
 import org.rainy.blog.entity.Article;
 import org.rainy.blog.entity.Category;
-import org.rainy.blog.entity.Comment;
 import org.rainy.blog.entity.Tag;
 import org.rainy.common.util.CommonUtils;
 

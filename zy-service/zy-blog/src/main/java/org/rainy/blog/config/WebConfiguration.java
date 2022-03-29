@@ -19,7 +19,7 @@ public class WebConfiguration {
      * @return {@link WebMvcConfigurer}
      */
     @Bean
-    public WebMvcConfigurer webMvcConfigurer() {
+    public WebMvcConfigurer webCorsMvcConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {

@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "blog")
 public class BlogConfiguration {
-    
+
+    /**
+     * 热门文章计算周期
+     */
     private Integer hotArticleCalculateHour;
-    
-    
+
+
 }

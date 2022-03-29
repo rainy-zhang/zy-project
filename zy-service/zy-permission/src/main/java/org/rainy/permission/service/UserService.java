@@ -6,17 +6,21 @@ import org.rainy.common.beans.PageResult;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.exception.IllegalParamException;
-import org.rainy.permission.entity.User;
+import org.rainy.common.util.AvatarHelper;
 import org.rainy.common.util.BeanValidator;
 import org.rainy.common.util.PasswordUtils;
 import org.rainy.permission.constant.LogOpType;
 import org.rainy.permission.constant.LogType;
+import org.rainy.permission.dto.UserDto;
+import org.rainy.permission.entity.User;
 import org.rainy.permission.param.UserParam;
+import org.rainy.permission.param.VisitorParam;
 import org.rainy.permission.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -32,23 +36,31 @@ public class UserService {
         this.logService = logService;
     }
 
-    public PageResult<User> pageResult(PageQuery pageQuery) {
+    public PageResult<UserDto> userPage(PageQuery pageQuery) {
         BeanValidator.validate(pageQuery);
-        Page<User> UserPage = userRepository.findAll(pageQuery.convert());
-        return PageResult.of(UserPage);
+        Page<User> page = userRepository.findAll(pageQuery.convert());
+        Page<UserDto> userPage = page.map(UserDto::convert);
+        return PageResult.of(userPage);
     }
 
     public Optional<User> findByKeyword(String username) {
         return userRepository.findByEmailOrTelephone(username, username);
     }
 
-    public User findById(Integer id) {
+    public UserDto findById(Integer id) {
         Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElse(null);
+        User user = userOptional.orElseThrow(() -> new BeanNotFoundException("用户不存在"));
+        return UserDto.convert(user);
+    }
+
+    public UserDto saveVisitor(VisitorParam visitorParam) throws IOException {
+        BeanValidator.validate(visitorParam, ValidateGroups.INSERT.class);
+        UserParam userParam = visitorParam.convert();
+        return register(userParam);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void save(UserParam userParam) {
+    public UserDto register(UserParam userParam) throws IOException {
         BeanValidator.validate(userParam, ValidateGroups.INSERT.class);
         if (userRepository.existsByEmail(userParam.getEmail())) {
             throw new IllegalParamException("email already in use");
@@ -58,10 +70,11 @@ public class UserService {
         }
         String encryptPassword = PasswordUtils.encrypt(userParam.getPassword());
         User user = userParam.convert();
+        user.setAvatar(AvatarHelper.createBase64Avatar(user.getUsername()));
         user.setPassword(encryptPassword);
         user = userRepository.save(user);
-
         logService.save(null, user, LogType.USER, LogOpType.INSERT);
+        return UserDto.convert(user);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -89,7 +102,6 @@ public class UserService {
         userRepository.deleteById(id);
         logService.save(originUser, null, LogType.USER, LogOpType.DELETE);
     }
-
 
 
 }

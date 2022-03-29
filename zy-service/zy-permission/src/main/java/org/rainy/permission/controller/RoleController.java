@@ -31,6 +31,7 @@ public class RoleController {
 
     /**
      * 根据角色Id获取权限树
+     *
      * @param id
      * @return
      */
@@ -41,6 +42,7 @@ public class RoleController {
 
     /**
      * 根据角色Id获取对应用户列表
+     *
      * @param id
      * @return
      */
@@ -51,6 +53,7 @@ public class RoleController {
 
     /**
      * 保存角色
+     *
      * @param roleParam
      */
     @PostMapping(value = "/save")
@@ -60,6 +63,7 @@ public class RoleController {
 
     /**
      * 删除角色
+     *
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")
@@ -69,6 +73,7 @@ public class RoleController {
 
     /**
      * 修改角色
+     *
      * @param roleParam
      */
     @PutMapping(value = "/update")
@@ -78,6 +83,7 @@ public class RoleController {
 
     /**
      * 修改角色与权限关联关系
+     *
      * @param roleAclParam
      */
     @PutMapping(value = "/changeAcls")
@@ -87,6 +93,7 @@ public class RoleController {
 
     /**
      * 修改角色与用户关联关系
+     *
      * @param roleUserParam
      */
     @PutMapping(value = "/changeUsers")

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.exception.IllegalBeanException;
+import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.constant.LogType;
 import org.rainy.permission.entity.Role;
-import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +35,7 @@ public class RoleStrategy implements LogStrategy {
 
         Preconditions.checkNotNull(beforeRole);
         Preconditions.checkNotNull(afterRole);
+        Preconditions.checkNotNull(beforeRole.getId());
 
         if (!roleRepository.existsById(beforeRole.getId())) {
             throw new IllegalBeanException("role not found");
@@ -56,6 +57,7 @@ public class RoleStrategy implements LogStrategy {
         Role beforeRole = JsonMapper.string2Object(beforeValue, new TypeReference<>() {
         });
         Preconditions.checkNotNull(beforeRole);
+        Preconditions.checkNotNull(beforeRole.getId());
         if (roleRepository.existsById(beforeRole.getId())) {
             throw new IllegalBeanException("role primaryKey already in use");
         }

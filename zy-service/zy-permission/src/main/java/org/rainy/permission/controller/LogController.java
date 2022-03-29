@@ -19,6 +19,7 @@ public class LogController {
 
     /**
      * 系统操作日志查询接口
+     *
      * @param searchParam
      * @param pageQuery
      * @return
@@ -30,6 +31,7 @@ public class LogController {
 
     /**
      * 回滚日志
+     *
      * @param id
      */
     @PutMapping(value = "/rollback")

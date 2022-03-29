@@ -38,7 +38,7 @@ public class Category {
 
     @Column(name = "status")
     private Integer status;
-    
+
     @Operator
     @Column(name = "operator")
     private Integer operator;
@@ -54,7 +54,7 @@ public class Category {
     public static class COLUMN {
         public static final String SEQ = "seq";
         public static final String STATUS = "status";
-        
+
     }
 
 }

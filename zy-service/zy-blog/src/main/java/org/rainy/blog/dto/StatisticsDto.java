@@ -14,9 +14,9 @@ public class StatisticsDto {
     private Long articleCount;
 
     private Long followCount;
-    
+
     private Long tagCount;
-    
+
     private Long categoryCount;
 
 }

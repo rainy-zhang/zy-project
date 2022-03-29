@@ -48,5 +48,5 @@ public class Archive {
     @OperateIp
     @Column(name = "operate_ip")
     private String operateIp;
-    
+
 }

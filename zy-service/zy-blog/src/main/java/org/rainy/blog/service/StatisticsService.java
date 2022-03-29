@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class StatisticsService {
-    
+
     private final ArticleService articleService;
     private final CategoryService categoryService;
     private final TagService tagService;
@@ -19,7 +19,7 @@ public class StatisticsService {
         this.tagService = tagService;
         this.followService = followService;
     }
-    
+
     public StatisticsDto statistics() {
         return StatisticsDto.builder()
                 .articleCount(articleService.count())
@@ -28,5 +28,5 @@ public class StatisticsService {
                 .categoryCount(categoryService.count())
                 .build();
     }
-    
+
 }

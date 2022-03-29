@@ -10,8 +10,6 @@ import org.rainy.permission.entity.User;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -43,13 +41,8 @@ public class UserParam {
     @Length(max = 200, message = "描述长度需要在200个字符以内", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private String description;
 
-    @NotNull(message = "用户状态不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    @Min(value = 0, message = "用户状态不合法", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    @Max(value = 1, message = "用户状态不合法", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private Integer status;
 
-    @NotNull(message = "排序号不能为空", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
-    @Min(value = -1, message = "排序号不合法", groups = {ValidateGroups.UPDATE.class, ValidateGroups.INSERT.class})
     private Integer seq;
 
     public User convert() {
@@ -57,7 +50,6 @@ public class UserParam {
         BeanUtils.copyProperties(this, user);
         return user;
     }
-
 
 
 }

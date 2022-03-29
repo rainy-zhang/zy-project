@@ -9,7 +9,6 @@ import org.rainy.blog.service.ArticleService;
 import org.rainy.common.beans.PageResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController

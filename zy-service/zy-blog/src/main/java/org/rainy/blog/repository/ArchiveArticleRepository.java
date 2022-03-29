@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ArchiveArticleRepository extends JpaRepository<ArchiveArticle, Integer> {
-    
+
     @Query(value = "SELECT article_id FROM t_archive_article WHERE archive_id = :archiveId", nativeQuery = true)
     List<Integer> findArticleIdsByArchiveId(@Param("archiveId") Integer archiveId);
-    
+
 }

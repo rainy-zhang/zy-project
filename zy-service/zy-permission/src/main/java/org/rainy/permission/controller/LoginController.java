@@ -1,8 +1,8 @@
 package org.rainy.permission.controller;
 
-import org.rainy.permission.entity.User;
 import org.rainy.common.util.BeanValidator;
 import org.rainy.common.util.PasswordUtils;
+import org.rainy.permission.entity.User;
 import org.rainy.permission.exception.LoginException;
 import org.rainy.permission.param.LoginParam;
 import org.rainy.permission.service.UserService;
@@ -25,6 +25,7 @@ public class LoginController {
 
     /**
      * 登录接口
+     *
      * @param loginParam
      */
     @PostMapping(value = "/login")

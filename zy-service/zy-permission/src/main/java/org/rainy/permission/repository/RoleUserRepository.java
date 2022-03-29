@@ -13,6 +13,7 @@ public interface RoleUserRepository extends JpaRepository<RoleUser, Integer> {
 
     /**
      * 根据用户ID查询对应的角色Id列表
+     *
      * @param userId
      * @return roleIds
      */
@@ -21,6 +22,7 @@ public interface RoleUserRepository extends JpaRepository<RoleUser, Integer> {
 
     /**
      * 根据角色Id查询对应的用户Id列表
+     *
      * @param roleId
      * @return userIds
      */

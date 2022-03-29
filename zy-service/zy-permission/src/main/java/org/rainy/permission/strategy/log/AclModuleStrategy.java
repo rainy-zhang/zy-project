@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import org.rainy.common.exception.BeanNotFoundException;
 import org.rainy.common.exception.IllegalBeanException;
+import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.constant.LogType;
 import org.rainy.permission.entity.AclModule;
-import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.repository.AclModuleRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +57,7 @@ public class AclModuleStrategy implements LogStrategy {
         AclModule beforeAclModule = JsonMapper.string2Object(beforeValue, new TypeReference<>() {
         });
         Preconditions.checkNotNull(beforeAclModule);
+        Preconditions.checkNotNull(beforeAclModule.getId());
 
         if (aclModuleRepository.existsById(beforeAclModule.getId())) {
             throw new IllegalBeanException("aclModule primaryKey already in use");

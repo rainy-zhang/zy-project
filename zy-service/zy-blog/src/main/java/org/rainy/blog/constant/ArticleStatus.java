@@ -2,7 +2,6 @@ package org.rainy.blog.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.rainy.blog.entity.Article;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,6 +23,7 @@ public enum ArticleStatus {
     private final String desc;
 
     public static final Map<Integer, String> map;
+
     static {
         map = Stream.of(ArticleStatus.values()).collect(Collectors.toMap(ArticleStatus::getCode, ArticleStatus::getDesc));
     }

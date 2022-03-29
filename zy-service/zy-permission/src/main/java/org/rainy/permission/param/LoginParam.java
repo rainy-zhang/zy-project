@@ -13,7 +13,7 @@ public class LoginParam {
     private String username;
 
     @NotNull(message = "密码不能为空")
-    @Length(min = 5, max = 50,message = "密码长度不合法")
+    @Length(min = 5, max = 50, message = "密码长度不合法")
     private String password;
 
     private String ret;

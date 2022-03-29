@@ -23,6 +23,7 @@ public class AclModuleController {
 
     /**
      * 根据id获取权限模块信息
+     *
      * @param id
      * @return
      */
@@ -33,6 +34,7 @@ public class AclModuleController {
 
     /**
      * 获取权限树
+     *
      * @return
      */
     @GetMapping(value = "/acls")
@@ -42,6 +44,7 @@ public class AclModuleController {
 
     /**
      * 保存权限模块
+     *
      * @param aclModuleParam
      */
     @PostMapping(value = "/save")
@@ -51,6 +54,7 @@ public class AclModuleController {
 
     /**
      * 修改权限模块
+     *
      * @param aclModuleParam
      */
     @PutMapping(value = "/update")
@@ -60,6 +64,7 @@ public class AclModuleController {
 
     /**
      * 删除权限模块
+     *
      * @param id
      */
     @DeleteMapping(value = "/delete/{id}")

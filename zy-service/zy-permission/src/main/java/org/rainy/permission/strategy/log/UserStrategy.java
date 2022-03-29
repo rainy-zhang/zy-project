@@ -3,11 +3,11 @@ package org.rainy.permission.strategy.log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import org.rainy.common.exception.BeanNotFoundException;
-import org.rainy.common.exception.IllegalParamException;
 import org.rainy.common.exception.IllegalBeanException;
+import org.rainy.common.exception.IllegalParamException;
+import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.constant.LogType;
 import org.rainy.permission.entity.User;
-import org.rainy.common.util.JsonMapper;
 import org.rainy.permission.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
@@ -51,6 +51,7 @@ public class UserStrategy implements LogStrategy {
         User beforeUser = JsonMapper.string2Object(beforeValue, new TypeReference<>() {
         });
         Preconditions.checkNotNull(beforeUser);
+        Preconditions.checkNotNull(beforeUser.getId());
 
         if (userRepository.existsById(beforeUser.getId())) {
             throw new IllegalParamException("user primaryKey already in use");

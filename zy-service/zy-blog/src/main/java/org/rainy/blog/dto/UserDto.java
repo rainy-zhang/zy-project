@@ -21,4 +21,6 @@ public class UserDto {
 
     private String description;
 
+    private String avatar;
+
 }

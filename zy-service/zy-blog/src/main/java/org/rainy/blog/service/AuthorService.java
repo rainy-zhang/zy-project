@@ -17,14 +17,14 @@ import java.util.stream.Collectors;
 public class AuthorService {
 
     private Author author = null;
-    
+
     public Author author() throws IOException {
         if (author == null) {
             load();
         }
         return this.author;
     }
-    
+
     public void load() throws IOException {
         File authorFile = ResourceUtils.getFile("classpath:author.json");
         String authorStr = Files.lines(authorFile.toPath()).collect(Collectors.joining());
