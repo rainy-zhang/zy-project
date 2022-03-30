@@ -1,11 +1,31 @@
 {
   "name": "Rainy Zhang",
-  "description": "Developer",
+  "description": "希望自己永远温柔",
   "email": "rainy_zhang@foxmail.com",
+  "QQ": "791136444",
   "city": "HeFei",
   "wechat": "15650870406",
-  "github": "",
-  "experience": [],
+  "github": "https://github.com/rainy-zhang",
+  "experiences": [
+    {
+      "companyName": "合肥飞鸟科技有限公司",
+      "start": "2018-07-01",
+      "end": "2019-08-01",
+      "jobDescription": "Java开发工程师"
+    },
+    {
+      "companyName": "合肥帧讯科技有限公司",
+      "start": "2019-08-01",
+      "end": "2021-05-01",
+      "jobDescription": "Java开发工程师"
+    },
+    {
+      "companyName": "安徽皖通科技有限公司",
+      "start": "2021-06-01",
+      "end": "",
+      "jobDescription": "Java开发工程师"
+    }
+  ],
   "status": "single",
   "dream": "more money",
   "skills": ["Java", "MySQL", "Redis", "Kafka"]

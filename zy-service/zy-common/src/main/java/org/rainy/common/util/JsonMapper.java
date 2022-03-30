@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -49,5 +51,16 @@ public class JsonMapper {
             return null;
         }
     }
+
+    public static <T> T jsonFile2Object(File jsonFile, TypeReference<T> typeReference) {
+        Preconditions.checkNotNull(jsonFile, "jsonFile can bot be null");
+        try {
+            return objectMapper.readValue(jsonFile, typeReference);
+        } catch (IOException e) {
+            log.error("parse string to object error: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
 
 }

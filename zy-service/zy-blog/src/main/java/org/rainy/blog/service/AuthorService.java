@@ -8,12 +8,11 @@ import org.rainy.common.util.JsonMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.FileAttribute;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,33 +20,31 @@ import java.util.stream.Collectors;
 public class AuthorService {
 
     private Author author = null;
-
+    
     public Author author() throws IOException {
         if (author == null) {
-            load();
+            return load();
         }
         return this.author;
     }
-
+    
     public Author load() throws IOException {
+        // TODO：这里获取的File是target/class目录下的，不对
         File authorFile = ResourceUtils.getFile("classpath:author.json");
         String authorStr = Files.lines(authorFile.toPath()).collect(Collectors.joining());
-        this.author = JsonMapper.string2Object(authorStr, new TypeReference<>() {
+        author = JsonMapper.string2Object(authorStr, new TypeReference<>() {
         });
-        log.info("加载作者信息完成，author：{}", author);
-        return author;
+        return this.author;
     }
 
     public Author change(Author author) throws IOException {
         File authorFile = ResourceUtils.getFile("classpath:author.json");
         String authorStr = JsonMapper.object2String(author);
         Preconditions.checkNotNull(authorStr);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(authorFile, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(authorFile, true))) {
             writer.write(authorStr);
         }
-        this.author = author;
-        log.info("变更作者信息完成，author：{}", this.author);
-        return author;
+        return load();
     }
 
 }
