@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.rainy.permission.entity.User;
 import org.springframework.beans.BeanUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,10 @@ public class UserDto {
     private Integer status;
 
     private Integer seq;
+    
+    private String token;
+    
+    private Date expireAt;
 
     public static List<UserDto> converts(List<User> users) {
         return users.stream().map(UserDto::convert).collect(Collectors.toList());

@@ -1,11 +1,10 @@
 package org.rainy.permission.controller;
 
-import org.rainy.common.util.BeanValidator;
 import org.rainy.common.util.PasswordUtils;
 import org.rainy.permission.entity.User;
 import org.rainy.permission.exception.LoginException;
 import org.rainy.permission.param.LoginParam;
-import org.rainy.permission.service.UserService;
+import org.rainy.permission.service.LoginService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +16,12 @@ import java.util.Optional;
 @RestController
 public class LoginController {
 
-    private final UserService userService;
+    private final LoginService loginService;
 
-    public LoginController(UserService userService) {
-        this.userService = userService;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
     }
+
 
     /**
      * 登录接口
@@ -29,17 +29,9 @@ public class LoginController {
      * @param loginParam
      */
     @PostMapping(value = "/login")
-    public void login(@RequestBody LoginParam loginParam) {
-        BeanValidator.validate(loginParam);
-        Optional<User> userOptional = userService.findByKeyword(loginParam.getUsername());
-        User user = userOptional.orElseThrow(() -> new LoginException("username or password error"));
-
-        String encryptPassword = PasswordUtils.encrypt(loginParam.getPassword());
-        if (Objects.equals(user.getPassword(), encryptPassword)) {
-            throw new LoginException("username or password error");
-        }
-
-        // TODO: 存储用户信息认证
+    public String login(@RequestBody LoginParam loginParam) {
+        String token = loginService.login(loginParam);
+        return token;
     }
 
     /**

@@ -13,3 +13,7 @@ spring:
 
 
 
+token:
+  header: Authorization
+  expireTime: 60
+  
