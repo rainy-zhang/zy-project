@@ -66,7 +66,14 @@ public class ArticleService {
             List<Integer> tagIds = articleTagService.findTagIdsByArticleId(articleId);
             // 获取文章对应的评论列表
             return new ArticleDto.Builder()
-                    .article(article)
+                    .id(articleId)
+                    .comments(article.getComments())
+                    .likes(article.getLikes())
+                    .reading(article.getReading())
+                    .title(article.getTitle())
+                    .summary(article.getSummary())
+                    .userId(article.getUserId())
+                    .createTime(article.getCreateTime())
                     .category(categoryService.findById(article.getCategoryId()))
                     .tags(tagService.findByIds(tagIds))
                     .status(article.getStatus())

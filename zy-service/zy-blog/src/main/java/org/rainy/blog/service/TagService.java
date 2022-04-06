@@ -5,10 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.rainy.blog.entity.Tag;
 import org.rainy.blog.param.TagParam;
 import org.rainy.blog.repository.TagRepository;
+import org.rainy.common.beans.PageQuery;
+import org.rainy.common.beans.PageResult;
 import org.rainy.common.constant.CommonStatus;
 import org.rainy.common.constant.ValidateGroups;
 import org.rainy.common.exception.BeanExistException;
 import org.rainy.common.util.BeanValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +28,10 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    public List<Tag> tags() {
-        return tagRepository.findAll();
+    public PageResult<Tag> tags(PageQuery pageQuery) {
+        BeanValidator.validate(pageQuery, ValidateGroups.SELECT.class);
+        Page<Tag> tagPage = tagRepository.findAll(pageQuery.convert());
+        return PageResult.of(tagPage);
     }
 
     public List<Tag> findByIds(List<Integer> ids) {

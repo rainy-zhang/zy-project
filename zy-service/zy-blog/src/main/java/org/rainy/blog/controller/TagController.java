@@ -3,9 +3,9 @@ package org.rainy.blog.controller;
 import org.rainy.blog.entity.Tag;
 import org.rainy.blog.param.TagParam;
 import org.rainy.blog.service.TagService;
+import org.rainy.common.beans.PageQuery;
+import org.rainy.common.beans.PageResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping(value = "/tag")
 @RestController
@@ -17,9 +17,9 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping(value = "/tags")
-    public List<Tag> tags() {
-        return tagService.tags();
+    @PostMapping(value = "/tags")
+    public PageResult<Tag> tags(@RequestBody PageQuery pageQuery) {
+        return tagService.tags(pageQuery);
     }
 
     @PostMapping(value = "/save")
