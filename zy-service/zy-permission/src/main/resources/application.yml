@@ -10,10 +10,13 @@ spring:
     password: 12345678
   jpa:
     show-sql: true
-
+  redis:
+    host: localhost
+    password: 
 
 
 token:
   header: Authorization
   expireTime: 60
+  secret: asljgasojwqklesa
   

@@ -1,10 +1,15 @@
 package org.rainy.common.util;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Map;
 
+@Slf4j
 public class CommonUtils {
 
     public static String ago(LocalDateTime conditionTime) {
@@ -29,6 +34,20 @@ public class CommonUtils {
         } else {
             return "just now";
         }
+    }
+
+    public static <T> Map<String, Object> object2Map(T entity) {
+        Map<String, Object> beanMap = Maps.newHashMap();
+        try {
+            Field[] fields = entity.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                beanMap.put(field.getName(), field.get(entity));
+            }
+        } catch (IllegalAccessException e) {
+            log.error("object to map convert error, ", e);
+        }
+        return beanMap;
     }
 
 }

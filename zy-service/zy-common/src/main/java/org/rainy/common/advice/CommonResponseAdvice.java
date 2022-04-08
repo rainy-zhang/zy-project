@@ -1,4 +1,4 @@
-package org.rainy.permission.config;
+package org.rainy.common.advice;
 
 import lombok.SneakyThrows;
 import org.rainy.common.annotation.IgnoreResponseAdvice;
@@ -30,11 +30,11 @@ public class CommonResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         CommonResponse<Object> response = CommonResponse.success();
-        if (null == o) {
-            return response;
-        }
         if (o instanceof CommonResponse) {
             return o;
+        }
+        if (null == o) {
+            return response;
         }
         response.setData(o);
         return response;

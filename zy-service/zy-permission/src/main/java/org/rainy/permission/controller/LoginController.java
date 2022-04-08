@@ -1,17 +1,12 @@
 package org.rainy.permission.controller;
 
-import org.rainy.common.util.PasswordUtils;
-import org.rainy.permission.entity.User;
-import org.rainy.permission.exception.LoginException;
+import org.rainy.permission.dto.UserDto;
 import org.rainy.permission.param.LoginParam;
 import org.rainy.permission.service.LoginService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 public class LoginController {
@@ -29,9 +24,8 @@ public class LoginController {
      * @param loginParam
      */
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginParam loginParam) {
-        String token = loginService.login(loginParam);
-        return token;
+    public UserDto login(@RequestBody LoginParam loginParam) {
+        return loginService.login(loginParam);
     }
 
     /**
@@ -40,6 +34,7 @@ public class LoginController {
     @GetMapping(value = "/logout")
     public void logout() {
         // TODO: 删除用户信息认证
+        loginService.logout();
     }
 
 }

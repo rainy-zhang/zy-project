@@ -1,5 +1,7 @@
 package org.rainy.permission.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rainy.permission.entity.User;
@@ -9,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Builder
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
 public class UserDto {
@@ -19,7 +23,7 @@ public class UserDto {
 
     private String email;
 
-    private String telephone;
+    private String nickname;
 
     private String description;
 

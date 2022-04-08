@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 public class TokenConfig {
     
     private String header;
+    
+    private String secret;
 
     /**
      * 过期时间

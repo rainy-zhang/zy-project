@@ -39,13 +39,15 @@ public class UserService {
     private final LogService logService;
     private final TreeService treeService;
     private final RoleService roleService;
+    private final TokenService tokenService;
     private final RoleUserRepository roleUserRepository;
 
-    public UserService(UserRepository userRepository, LogService logService, TreeService treeService, RoleService roleService, RoleUserRepository roleUserRepository) {
+    public UserService(UserRepository userRepository, LogService logService, TreeService treeService, RoleService roleService, TokenService tokenService, RoleUserRepository roleUserRepository) {
         this.userRepository = userRepository;
         this.logService = logService;
         this.treeService = treeService;
         this.roleService = roleService;
+        this.tokenService = tokenService;
         this.roleUserRepository = roleUserRepository;
     }
 
@@ -71,7 +73,7 @@ public class UserService {
     }
 
     public Optional<User> findByKeyword(String username) {
-        return userRepository.findByEmailOrTelephone(username, username);
+        return userRepository.findByEmailOrUsername(username, username);
     }
 
     public UserDto findById(Integer id) {
@@ -83,7 +85,9 @@ public class UserService {
     public UserDto saveVisitor(VisitorParam visitorParam) throws IOException {
         BeanValidator.validate(visitorParam, ValidateGroups.INSERT.class);
         UserParam userParam = visitorParam.convert();
-        return register(userParam);
+        UserDto userDto = register(userParam);
+        tokenService.createToken(userDto);
+        return userDto;
     }
 
     @Transactional(rollbackFor = Exception.class)
