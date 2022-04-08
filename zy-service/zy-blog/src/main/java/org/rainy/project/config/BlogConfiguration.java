@@ -1,0 +1,18 @@
+package org.rainy.project.config;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Data
+@Component
+@ConfigurationProperties(prefix = "blog")
+public class BlogConfiguration {
+
+    /**
+     * 热门文章计算周期
+     */
+    private Integer hotArticleCalculateHour;
+
+
+}
