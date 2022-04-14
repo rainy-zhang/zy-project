@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.rainy.project.annotation.ValidateParam;
 import org.rainy.project.constant.ArticleStatus;
 import org.rainy.project.dto.ArticleDto;
 import org.rainy.project.entity.Article;
@@ -28,17 +29,21 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.locks.StampedLock;
 
 @Slf4j
 @Service
 public class ArticleService {
 
-    public static Set<Integer> calculateArticleIds = Sets.newHashSet();
     private final ArticleRepository articleRepository;
     private final ArticleWithBlogRepository articleWithBlogRepository;
     private final ArticleTagService articleTagService;
     private final CategoryService categoryService;
     private final TagService tagService;
+    
+    private final StampedLock sl = new StampedLock();
+    // 用来存放需要重新计算热度的文章ID
+    public static Set<Integer> calculateArticleIds = Sets.newHashSet();
 
     public ArticleService(ArticleRepository articleRepository, ArticleWithBlogRepository articleWithBlogRepository, ArticleTagService articleTagService, CategoryService categoryService, TagService tagService) {
         this.articleRepository = articleRepository;
@@ -48,6 +53,7 @@ public class ArticleService {
         this.tagService = tagService;
     }
 
+    @ValidateParam
     public PageResult<ArticleDto> articlePage(ArticleParam articleParam) {
         BeanValidator.validate(articleParam, ValidateGroups.SELECT.class);
         Specification<Article> specification = (root, query, criteriaBuilder) -> {
@@ -152,6 +158,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setLikes(article.getLikes() - 1);
         articleRepository.save(article);
+        calculateArticleIds.add(id);
     }
 
     /**
@@ -163,6 +170,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setLikes(article.getLikes() + 1);
         articleRepository.save(article);
+        calculateArticleIds.add(id);
     }
 
     /**
@@ -174,6 +182,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setReading(article.getReading() + 1);
         articleRepository.save(article);
+        calculateArticleIds.add(id);
     }
 
     /**
@@ -185,6 +194,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setComments(article.getComments() + 1);
         articleRepository.save(article);
+        calculateArticleIds.add(id);
     }
 
     public Long count() {
@@ -194,14 +204,43 @@ public class ArticleService {
 
     // TODO: 定时任务
     public void calculateScore() {
-        List<Article> articles = articleRepository.findAllById(calculateArticleIds);
-        articles.forEach(article -> {
-            CalculateHopArticle calculateHopArticle = new CalculateHopArticle(article);
-            BigDecimal heat = calculateHopArticle.calculateHeat();
-            article.setHeat(heat);
-        });
-        articleRepository.saveAll(articles);
-        calculateArticleIds.clear();
+        // 乐观读
+        long stamp = sl.tryOptimisticRead();
+        try {
+            // 判断读过程中是否有写操作
+            if (!sl.validate(stamp)) {
+                // 升级为悲观读锁
+                long rs = sl.tryConvertToReadLock(stamp);
+                if (stamp != 0) {
+                    stamp = rs;
+                }
+            } else {
+                stamp = sl.readLock();
+            }
+
+            List<Article> articles = articleRepository.findAllById(calculateArticleIds);
+            articles.forEach(article -> {
+                CalculateHopArticle calculateHopArticle = new CalculateHopArticle(article);
+                BigDecimal heat = calculateHopArticle.calculateHeat();
+                article.setHeat(heat);
+            });
+            articleRepository.saveAll(articles);
+            
+            for (;;) {
+                long ws = sl.tryConvertToWriteLock(stamp);
+                if (ws != 0) {
+                    stamp = ws;
+                    calculateArticleIds.clear();
+                    break;
+                } else {
+                    sl.unlockRead(stamp);
+                    stamp = sl.writeLock();
+                }
+            }
+        } finally {
+            sl.unlock(stamp);
+        }
+        
     }
 
     public void hide(Integer id) {
