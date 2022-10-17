@@ -2,25 +2,30 @@ package org.rainy.project.strategy.log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
-import org.rainy.project.exception.BeanNotFoundException;
-import org.rainy.project.exception.IllegalBeanException;
-import org.rainy.project.util.JsonMapper;
+import org.rainy.project.beans.ApplicationContextHolder;
 import org.rainy.project.constant.LogType;
 import org.rainy.project.entity.Acl;
+import org.rainy.project.exception.BeanNotFoundException;
+import org.rainy.project.exception.IllegalBeanException;
 import org.rainy.project.repository.AclRepository;
-import org.springframework.stereotype.Component;
+import org.rainy.project.util.JsonMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
 
-@Component
-public class AclStrategy implements LogStrategy {
+public class AclStrategy extends AbstractLogStrategy {
 
+    private static final AclStrategy instance = new AclStrategy();
     private final AclRepository aclRepository;
 
-    public AclStrategy(AclRepository aclRepository) {
-        this.aclRepository = aclRepository;
+    private AclStrategy() {
+        this.aclRepository = ApplicationContextHolder.popBean(AclRepository.class);
+        register();
+    }
+
+    public static AclStrategy getInstance() {
+        return instance;
     }
 
     @Override

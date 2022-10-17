@@ -2,24 +2,29 @@ package org.rainy.project.strategy.log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
+import org.rainy.project.beans.ApplicationContextHolder;
+import org.rainy.project.constant.LogType;
+import org.rainy.project.entity.User;
 import org.rainy.project.exception.BeanNotFoundException;
 import org.rainy.project.exception.IllegalBeanException;
 import org.rainy.project.exception.IllegalParamException;
-import org.rainy.project.util.JsonMapper;
-import org.rainy.project.constant.LogType;
-import org.rainy.project.entity.User;
 import org.rainy.project.repository.UserRepository;
-import org.springframework.stereotype.Component;
+import org.rainy.project.util.JsonMapper;
 
 import java.util.Objects;
 
-@Component
-public class UserStrategy implements LogStrategy {
+public class UserStrategy extends AbstractLogStrategy {
 
+    private static final UserStrategy instance = new UserStrategy();
     private final UserRepository userRepository;
 
-    public UserStrategy(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private UserStrategy() {
+        this.userRepository = ApplicationContextHolder.popBean(UserRepository.class);
+        register();
+    }
+
+    public static UserStrategy getInstance() {
+        return instance;
     }
 
     @Override

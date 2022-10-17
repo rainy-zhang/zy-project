@@ -13,7 +13,7 @@ import org.rainy.project.entity.Log;
 import org.rainy.project.param.LogSearchParam;
 import org.rainy.project.repository.LogRepository;
 import org.rainy.project.strategy.log.LogStrategy;
-import org.rainy.project.strategy.log.LogStrategyFactory;
+import org.rainy.project.strategy.log.LogStrategyContext;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -63,7 +63,7 @@ public class LogService {
         }
 
         LogOpType opType = LogOpType.opTypes.get(log.getOpType());
-        LogStrategy logStrategy = LogStrategyFactory.getStrategy(log.getType());
+        LogStrategy logStrategy = LogStrategyContext.getStrategy(log.getType());
         switch (opType) {
             case INSERT:
                 logStrategy.recoveryInsert(log.getAfter());

@@ -2,6 +2,7 @@ package org.rainy.project.strategy.log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
+import org.rainy.project.beans.ApplicationContextHolder;
 import org.rainy.project.exception.BeanNotFoundException;
 import org.rainy.project.exception.IllegalBeanException;
 import org.rainy.project.util.JsonMapper;
@@ -12,13 +13,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Component
-public class RoleStrategy implements LogStrategy {
+public class RoleStrategy extends AbstractLogStrategy {
 
+    private static final RoleStrategy instance = new RoleStrategy();
     private final RoleRepository roleRepository;
 
-    public RoleStrategy(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    private RoleStrategy() {
+        this.roleRepository = ApplicationContextHolder.popBean(RoleRepository.class);
+        register();
+    }
+
+    public static RoleStrategy getInstance() {
+        return instance;
     }
 
     @Override

@@ -3,24 +3,29 @@ package org.rainy.project.strategy.log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import org.apache.commons.collections4.CollectionUtils;
-import org.rainy.project.exception.CommonException;
-import org.rainy.project.exception.IllegalBeanException;
-import org.rainy.project.util.JsonMapper;
+import org.rainy.project.beans.ApplicationContextHolder;
 import org.rainy.project.constant.LogType;
 import org.rainy.project.entity.RoleUser;
+import org.rainy.project.exception.CommonException;
+import org.rainy.project.exception.IllegalBeanException;
 import org.rainy.project.param.RoleUserParam;
 import org.rainy.project.repository.RoleUserRepository;
-import org.springframework.stereotype.Component;
+import org.rainy.project.util.JsonMapper;
 
 import java.util.List;
 
-@Component
-public class RoleUserStrategy implements LogStrategy {
+public class RoleUserStrategy extends AbstractLogStrategy {
 
+    private static final RoleUserStrategy instance = new RoleUserStrategy();
     private final RoleUserRepository roleUserRepository;
 
-    public RoleUserStrategy(RoleUserRepository roleUserRepository) {
-        this.roleUserRepository = roleUserRepository;
+    private RoleUserStrategy() {
+        this.roleUserRepository = ApplicationContextHolder.popBean(RoleUserRepository.class);
+        register();
+    }
+
+    public static RoleUserStrategy getInstance() {
+        return instance;
     }
 
     @Override

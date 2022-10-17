@@ -114,6 +114,7 @@ public class ArticleService {
      * @param id 文章ID
      * @return {@link ArticleWithBlobs}
      */
+    @ValidateParam
     public ArticleWithBlobs details(Integer id) {
         Preconditions.checkNotNull(id, "文章id不能为空");
         ArticleWithBlobs article = articleWithBlogRepository.findById(id).orElseThrow(() -> new BeanNotFoundException("文章不存在"));
@@ -130,6 +131,13 @@ public class ArticleService {
         Preconditions.checkNotNull(id, "文章id不能为空");
         articleRepository.deleteById(id);
         log.info("删除文章成功，articleId：{}", id);
+    }
+
+    public void hide(Integer id) {
+        Article article = findById(id);
+        article.setStatus(ArticleStatus.HIDE.getCode());
+        articleRepository.save(article);
+        log.info("隐藏文章成功，id：{}", id);
     }
 
     /**
@@ -158,7 +166,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setLikes(article.getLikes() - 1);
         articleRepository.save(article);
-        calculateArticleIds.add(id);
+        addCalculateArticleId(id);
     }
 
     /**
@@ -170,7 +178,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setLikes(article.getLikes() + 1);
         articleRepository.save(article);
-        calculateArticleIds.add(id);
+        addCalculateArticleId(id);
     }
 
     /**
@@ -182,7 +190,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setReading(article.getReading() + 1);
         articleRepository.save(article);
-        calculateArticleIds.add(id);
+        addCalculateArticleId(id);
     }
 
     /**
@@ -194,7 +202,7 @@ public class ArticleService {
         Article article = findById(id);
         article.setComments(article.getComments() + 1);
         articleRepository.save(article);
-        calculateArticleIds.add(id);
+        addCalculateArticleId(id);
     }
 
     public Long count() {
@@ -202,6 +210,15 @@ public class ArticleService {
         return articleRepository.count(specification);
     }
 
+    private void addCalculateArticleId(Integer id) {
+        long stamp = sl.writeLock();
+        try {
+            calculateArticleIds.add(id);
+        } finally {
+            sl.unlockWrite(stamp);
+        }
+    }
+    
     // TODO: 定时任务
     public void calculateScore() {
         // 乐观读
@@ -213,10 +230,10 @@ public class ArticleService {
                 long rs = sl.tryConvertToReadLock(stamp);
                 if (stamp != 0) {
                     stamp = rs;
+                } else {
+                    stamp = sl.readLock();
                 }
-            } else {
-                stamp = sl.readLock();
-            }
+            } 
 
             List<Article> articles = articleRepository.findAllById(calculateArticleIds);
             articles.forEach(article -> {
@@ -243,12 +260,7 @@ public class ArticleService {
         
     }
 
-    public void hide(Integer id) {
-        Article article = findById(id);
-        article.setStatus(ArticleStatus.HIDE.getCode());
-        articleRepository.save(article);
-        log.info("隐藏文章成功，id：{}", id);
-    }
+    
 
     private static class CalculateHopArticle {
 
