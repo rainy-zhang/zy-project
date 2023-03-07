@@ -17,6 +17,7 @@
         <module>zy-blog</module>
         <module>zy-search</module>
         <module>zy-common</module>
+        <module>zy-space</module>
     </modules>
 
     <properties>
